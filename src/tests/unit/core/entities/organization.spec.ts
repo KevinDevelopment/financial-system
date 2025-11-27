@@ -24,7 +24,7 @@ beforeEach(() => {
 		name: "Empresa teste",
 		cnpj: "91.054.462/0001-47",
 		socialReason: "Empresa teste do Goku",
-		mobilePhone: "5511965783456",
+		phone: "5511965783456",
 		address: baseAddress,
 	});
 });
@@ -39,7 +39,7 @@ describe("entity organization tests", () => {
 		expect(organization.id?.value).toEqual(123n);
 		expect(organization.cnpj?.value).toEqual("91054462000147");
 		expect(organization.socialReason).toEqual("Empresa teste do Goku");
-		expect(organization.mobilePhone).toEqual("5511965783456");
+		expect(organization.phone).toEqual("5511965783456");
 		expect(isEqualAddress).toBeTruthy();
 	});
 
