@@ -1,0 +1,8 @@
+{
+	"compilerOptions": {
+		"lib": ["ES2023"],
+		"module": "nodenext",
+		"target": "ES2023",
+		"outDir": "./dist"
+	}
+}

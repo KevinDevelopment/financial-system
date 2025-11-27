@@ -1,0 +1,31 @@
+{
+	"name": "financial-system",
+	"version": "1.0.0",
+	"description": "financial system",
+	"main": "index.js",
+	"scripts": {
+		"test": "vitest",
+		"coverage": "vitest run --coverage",
+		"format": "npx @biomejs/biome format --write",
+		"prisma:migrate:dev": "prisma migrate dev",
+		"prisma:generate": "prisma generate --env-file=.env"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"devDependencies": {
+		"@biomejs/biome": "2.3.6",
+		"@types/node": "^24.10.0",
+		"@types/typescript": "^0.4.29",
+		"@vitest/coverage-v8": "^4.0.7",
+		"prisma": "^7.0.0",
+		"typescript": "^5.9.3",
+		"vitest": "^4.0.7"
+	},
+	"dependencies": {
+		"@prisma/client": "^7.0.0",
+		"dotenv": "^17.2.3",
+		"tsx": "^4.20.6"
+	}
+}

@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Organization {
+  id           BigInt     @id
+  name         String     @db.VarChar(80)
+  socialReason String     @map("social_reason") @db.VarChar(150)
+  phone        String     @db.VarChar(30)
+  cnpj         String     @db.VarChar(14)
+  addressId    BigInt?    @unique @map("address_id")
+  address      Address?   @relation(fields: [addressId], references: [id])
+  users        User[]
+  accounts     Account[]
+  categories   Category[]
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  @@map("organizations")
+}
+
+model Transaction {
+  id            BigInt   @id
+  description   String   @db.VarChar(1000)
+  amount        Decimal  @db.Decimal(10, 2)
+  type          Int      @db.SmallInt
+  status        Int      @db.SmallInt
+  paymentMethod Int      @map("payment_method") @db.SmallInt
+  userId        BigInt   @map("user_id")
+  user          User     @relation(fields: [userId], references: [id])
+  accountId     BigInt   @map("account_id")
+  account       Account  @relation(fields: [accountId], references: [id])
+  categoryId    BigInt   @map("category_id")
+  category      Category @relation(fields: [categoryId], references: [id])
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("transactions")
+}
+
+model Category {
+  id             BigInt        @id
+  name           String        @db.VarChar(80)
+  color          String        @db.VarChar(12)
+  organizationId BigInt        @map("organization_id")
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+  transaction    Transaction[]
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  @@map("categories")
+}
+
+model Account {
+  id             BigInt        @id
+  name           String        @db.VarChar(80)
+  type           Int           @db.SmallInt
+  initialBalance Decimal       @map("initial_balance") @db.Decimal(10, 2)
+  currentBalance Decimal       @map("current_balance") @db.Decimal(10, 2)
+  organizationId BigInt        @map("organization_id")
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+  transactions   Transaction[]
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  @@map("accounts")
+}
+
+model User {
+  id             BigInt        @id
+  name           String        @db.VarChar(80)
+  email          String        @db.VarChar(254)
+  hashPassword   String        @map("hash_password") @db.VarChar(100)
+  document       String        @db.VarChar(14)
+  organizationId BigInt        @map("organization_id")
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+  transactions   Transaction[]
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Address {
+  id           BigInt        @id
+  street       String        @db.VarChar(150)
+  number       Int?          @db.SmallInt
+  complement   String?       @db.VarChar(50)
+  neighborhood String?       @db.VarChar(80)
+  city         String        @db.VarChar(100)
+  state        String        @db.VarChar(50)
+  country      String        @db.VarChar(50)
+  zipCode      String?       @map("zip_code") @db.VarChar(20)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  organization Organization?
+
+  @@map("addresses")
+}
