@@ -11,7 +11,7 @@ let correctValues: CreateOrganizationInputDto = {
 	name: "Empresa teste",
 	cnpj: "91.054.462/0001-47",
 	socialReason: "Empresa teste do Goku",
-	mobilePhone: "5511965783456",
+	phone: "5511965783456",
 	address: {
 		city: "São Paulo",
 		country: "Brasil",
