@@ -8,7 +8,13 @@
 		"coverage": "vitest run --coverage",
 		"format": "npx @biomejs/biome format --write",
 		"prisma:migrate:dev": "prisma migrate dev",
-		"prisma:generate": "prisma generate --env-file=.env"
+		"prisma:generate": "prisma generate --env-file=.env",
+		"dev": "tsx watch --env-file=.env ./src/presentation/web/server.ts",
+		"build": "rm -rf ./dist && npx tsc",
+		"start": "node --env-file=.env dist/src/presentation/web/server.js"
+	},
+	"prisma": {
+		"schema": "src/infrastructure/prisma/schema.prisma"
 	},
 	"keywords": [],
 	"author": "",
@@ -19,13 +25,15 @@
 		"@types/node": "^24.10.0",
 		"@types/typescript": "^0.4.29",
 		"@vitest/coverage-v8": "^4.0.7",
-		"prisma": "^7.0.0",
+		"prisma": "^6.3.1",
 		"typescript": "^5.9.3",
 		"vitest": "^4.0.7"
 	},
 	"dependencies": {
-		"@prisma/client": "^7.0.0",
+		"@fastify/cors": "^11.1.0",
+		"@prisma/client": "^6.3.1",
 		"dotenv": "^17.2.3",
+		"fastify": "^5.6.2",
 		"tsx": "^4.20.6"
 	}
 }

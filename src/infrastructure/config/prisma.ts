@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 class Prisma {
     private static _instance: PrismaClient;
@@ -8,7 +8,6 @@ class Prisma {
             this._instance = new PrismaClient({
                 log: ["error", "warn", "query"],
                 errorFormat: "pretty",
-                accelerateUrl: process.env.DATABASE_URL
             });
         }
 

@@ -4,7 +4,7 @@ export interface CreateOrganizationInputDto {
 	name: string;
 	cnpj: string;
 	socialReason?: string;
-	mobilePhone?: string;
+	phone?: string;
 	address?: {
 		street: string;
 		city: string;
