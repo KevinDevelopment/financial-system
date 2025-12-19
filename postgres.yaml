@@ -29,13 +29,15 @@ spec:
           ports:
             - containerPort: 5432
           env:
+            - name: POSTGRES_USER
+              value: "postgres"
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: postgres-secret
                   key: password
-            - name: POSTGRES_USER
-              value: "postgres"
+            - name: POSTGRES_DB
+              value: financial
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
@@ -43,6 +45,7 @@ spec:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: postgres-pvc
+
 ---
 apiVersion: v1
 kind: Service
