@@ -2,7 +2,7 @@ import { expect, test, describe, beforeEach } from "vitest";
 import { OrganizationProps } from "../../../../core/props";
 import { Organization } from "../../../../core/entities";
 import { AddressProps } from "../../../../core/props";
-import { Address } from "../../../../core/value-objects";
+import { Address } from "../../../../core/value-objects/organization";
 import { BusinessRuleViolationError } from "../../../../core/exception";
 
 let baseAddress: AddressProps;
@@ -35,7 +35,7 @@ describe("entity organization tests", () => {
 		const address = Address.create(baseAddress);
 		const isEqualAddress = address.equals(organization?.address);
 
-		expect(organization.name).toEqual("Empresa teste");
+		expect(organization.name.value).toEqual("Empresa teste");
 		expect(organization.id?.value).toEqual(123n);
 		expect(organization.cnpj?.value).toEqual("91054462000147");
 		expect(organization.socialReason).toEqual("Empresa teste do Goku");
@@ -48,9 +48,34 @@ describe("entity organization tests", () => {
 			return Organization.create({ ...baseOrganization, name: "" });
 		};
 		expect(organization).toThrowError(
-			new BusinessRuleViolationError("Nome da empresa é obrigatório", 422),
+			new BusinessRuleViolationError("Nome não pode ser vazio", 422),
 		);
 	});
+
+	test("Should return an error if name is less than 2 characters", () => {
+		const organization = () => {
+			return Organization.create({ ...baseOrganization, name: "A" });
+		};
+		expect(organization).toThrowError(
+			new BusinessRuleViolationError(
+				"Nome deve ter entre 2 e 100 caracteres",
+				422,
+			),
+		);
+	});
+
+	test("Should return an error if name is more than 100 characters", () => {
+		const longName = "A".repeat(101);
+		const organization = () => {
+			return Organization.create({ ...baseOrganization, name: longName });
+		};
+		expect(organization).toThrowError(
+			new BusinessRuleViolationError(
+				"Nome deve ter entre 2 e 100 caracteres",
+				422,
+			),
+		);
+	});				
 
 	test("Should return an Id if is not provided", () => {
 		const organization = Organization.create({

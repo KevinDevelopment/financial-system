@@ -1,5 +1,5 @@
 import { expect, test, describe, beforeEach } from "vitest";
-import { Address } from "../../../../core/value-objects";
+import { Address } from "../../../../core/value-objects/organization";
 import { AddressProps } from "../../../../core/props";
 import {
 	BusinessRuleViolationError,
