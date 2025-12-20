@@ -11,7 +11,7 @@ export class Color {
 	public static create(value: string): Color {
 		if (!this.isValid(value)) {
 			throw new BusinessRuleViolationError(
-				`Cor da tag inválida: ${value}`,
+				`Cor da categoria inválida`,
 				422,
 			);
 		}
