@@ -18,7 +18,7 @@ export class InMemoryOrganizationAdapter implements OrganizationRepository {
 
 	async findByName(name: string): Promise<Organization | null> {
 		const organizationExistsByName = this.databaseInMemory.find(
-			(org) => org.name === name,
+			(org) => org.name.value === name,
 		);
 		if (!organizationExistsByName) return null;
 		return organizationExistsByName;
