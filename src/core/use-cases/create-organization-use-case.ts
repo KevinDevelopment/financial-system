@@ -28,7 +28,7 @@ export class CreateOrganizationUseCase {
 		}
 
 		const nameAlreadyExists = await this.organizationRepository.findByName(
-			organization.name,
+			organization.name.value,
 		);
 
 		if (nameAlreadyExists) {
