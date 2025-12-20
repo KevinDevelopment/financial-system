@@ -1,27 +1,19 @@
-import { CNPJ, Address, UniqueNumericId } from "../value-objects";
+import { CNPJ, Address, UniqueNumericId, Name } from "../value-objects/organization";
 import { OrganizationProps } from "../props";
-import { BusinessRuleViolationError } from "../exception";
 
 export class Organization {
 	private constructor(
-		private readonly _name: string,
+		private readonly _name: Name,
 		private readonly _cnpj: CNPJ,
 		private readonly _socialReason?: string,
 		private readonly _phone?: string,
 		private readonly _address?: Address,
 		private readonly _id?: UniqueNumericId,
-	) {}
+	) { }
 
 	static create(props: OrganizationProps): Organization {
 		const { name, cnpj, socialReason, phone, address, id } = props;
-
-		if (!name)
-			throw new BusinessRuleViolationError(
-				"Nome da empresa é obrigatório",
-				422,
-			);
 		let addressInstance: Address | null;
-
 		if (address) {
 			addressInstance = Address.create(address);
 		}
@@ -34,7 +26,7 @@ export class Organization {
 		const uniqueId = id ? UniqueNumericId.create(id) : UniqueNumericId.create();
 
 		return new Organization(
-			name,
+			Name.create(name),
 			cnpjInstance,
 			socialReason,
 			phone,
@@ -43,7 +35,7 @@ export class Organization {
 		);
 	}
 
-	public get name(): string {
+	public get name(): Name {
 		return this._name;
 	}
 
