@@ -22,7 +22,7 @@ export class CreateOrganizationUseCase {
 
 		if (cnpjAlreadyExists) {
 			throw new DataAlreadyExistsError(
-				"organization already exists with this cnpj",
+				"Ja existe uma organização com este CNPJ",
 				409,
 			);
 		}
@@ -33,7 +33,7 @@ export class CreateOrganizationUseCase {
 
 		if (nameAlreadyExists) {
 			throw new DataAlreadyExistsError(
-				"organization already exists with this name",
+				"Ja existe uma organização com este nome",
 				409,
 			);
 		}
