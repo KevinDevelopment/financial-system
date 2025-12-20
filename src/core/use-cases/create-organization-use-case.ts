@@ -9,7 +9,7 @@ import { Organization } from "../entities";
 export class CreateOrganizationUseCase {
 	constructor(
 		private readonly organizationRepository: OrganizationRepository,
-	) { }
+	) {}
 
 	async perform(
 		input: CreateOrganizationInputDto,

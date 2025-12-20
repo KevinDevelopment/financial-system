@@ -79,7 +79,10 @@ describe("entity organization tests", () => {
 
 	test("Should return an error if cnpj is invalid", () => {
 		const organization = () => {
-			return Organization.create({ ...baseOrganization, cnpj: "11.111.111/1111-11" });
+			return Organization.create({
+				...baseOrganization,
+				cnpj: "11.111.111/1111-11",
+			});
 		};
 		expect(organization).toThrowError(
 			new BusinessRuleViolationError("CNPJ inválido: 11.111.111/1111-11", 422),

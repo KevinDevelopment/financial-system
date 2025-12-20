@@ -10,7 +10,10 @@ export class Color {
 
 	public static create(value: string): Color {
 		if (!this.isValid(value)) {
-			throw new BusinessRuleViolationError(`Cor da tag inválida: ${value}`, 422);
+			throw new BusinessRuleViolationError(
+				`Cor da tag inválida: ${value}`,
+				422,
+			);
 		}
 		return new Color(value);
 	}
@@ -24,7 +27,9 @@ export class Color {
 	}
 
 	private static isRGBA(value: string): boolean {
-		return /^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|0?\.\d+|1)\s*\)$/.test(value);
+		return /^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|0?\.\d+|1)\s*\)$/.test(
+			value,
+		);
 	}
 
 	private static isNamedColor(value: string): boolean {
