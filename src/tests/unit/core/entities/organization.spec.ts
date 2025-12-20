@@ -75,7 +75,33 @@ describe("entity organization tests", () => {
 				422,
 			),
 		);
-	});				
+	});
+
+	test("Should return an error if cnpj is invalid", () => {
+		const organization = () => {
+			return Organization.create({ ...baseOrganization, cnpj: "11.111.111/1111-11" });
+		};
+		expect(organization).toThrowError(
+			new BusinessRuleViolationError("CNPJ inválido: 11.111.111/1111-11", 422),
+		);
+	});
+
+	test("Should return an error if cnpj differs from 14 digits", () => {
+		const organization = () => {
+			return Organization.create({ ...baseOrganization, cnpj: "123456789012" });
+		};
+		expect(organization).toThrowError(
+			new BusinessRuleViolationError("CNPJ inválido: 123456789012", 422),
+		);
+	});
+
+	test("Should return an foramtted cnpj", () => {
+		const organization = Organization.create({
+			...baseOrganization,
+			cnpj: "91054462000147",
+		});
+		expect(organization?.cnpj?.formatted).toEqual("91.054.462/0001-47");
+	});
 
 	test("Should return an Id if is not provided", () => {
 		const organization = Organization.create({
