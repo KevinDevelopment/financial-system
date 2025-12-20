@@ -1,5 +1,5 @@
-import { BusinessRuleViolationError, MissingDataError } from "../exception";
-import { AddressProps } from "../props";
+import { BusinessRuleViolationError, MissingDataError } from "../../exception";
+import { AddressProps } from "../../props";
 
 export class Address {
 	private constructor(

@@ -1,5 +1,5 @@
 import { Organization } from "../../core/entities";
-import { Address, CNPJ } from "../../core/value-objects";
+import { Address, CNPJ } from "../../core/value-objects/organization";
 
 export const organizationMapper = {
     toPersistence(organization: Organization) {

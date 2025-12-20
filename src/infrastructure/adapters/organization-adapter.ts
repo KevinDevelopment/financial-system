@@ -1,6 +1,6 @@
 import { Organization } from "../../core/entities";
 import { OrganizationRepository } from "../../core/repositories";
-import { UniqueNumericId } from "../../core/value-objects"
+import { UniqueNumericId } from "../../core/value-objects/organization"
 import { prisma } from "../config";
 import { organizationMapper } from "../mappers/organization-mapper";
 
@@ -27,7 +27,7 @@ export class OrganizationAdapter implements OrganizationRepository {
             await tx.organization.create({
                 data: {
                     id: data.id,
-                    name: data.name,
+                    name: data.name.value,
                     socialReason: data.socialReason,
                     phone: data.phone,
                     cnpj: data.cnpj,
