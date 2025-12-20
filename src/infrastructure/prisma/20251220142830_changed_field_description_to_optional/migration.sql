@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "categories" ALTER COLUMN "color" SET DATA TYPE VARCHAR(40),
+ALTER COLUMN "description" DROP NOT NULL;

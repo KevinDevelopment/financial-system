@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client" 
+  provider = "prisma-client"
   output   = "../generated/prisma"
 }
 
@@ -46,7 +46,7 @@ model Transaction {
 model Category {
   id             BigInt        @id
   name           String        @db.VarChar(80)
-  description    String        @db.VarChar(255)
+  description    String?       @db.VarChar(255)
   color          String        @db.VarChar(40)
   organizationId BigInt        @map("organization_id")
   organization   Organization  @relation(fields: [organizationId], references: [id])
