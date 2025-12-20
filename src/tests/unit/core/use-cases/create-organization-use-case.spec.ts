@@ -43,14 +43,14 @@ describe("create organization use case tests", () => {
 			await useCase.perform(correctValues);
 		} catch (error) {
 			expect(error).toBeInstanceOf(DataAlreadyExistsError);
-			expect(error.message).toBe("organization already exists with this cnpj");
+			expect(error.message).toBe("Ja existe uma organização com este CNPJ");
 			expect(error?.status).toBe(409);
 		}
 	});
 
 	test("Should return an error if organization exists with same name", async () => {
 		const organization = Organization.create({
-			...correctValues,
+			...correctValues,			
 			cnpj: "85.169.115/0001-67",
 		});
 		repository.create(organization);
@@ -59,8 +59,14 @@ describe("create organization use case tests", () => {
 			await useCase.perform(correctValues);
 		} catch (error) {
 			expect(error).toBeInstanceOf(DataAlreadyExistsError);
-			expect(error?.message).toBe("organization already exists with this name");
+			expect(error?.message).toBe("Ja existe uma organização com este nome");
 			expect(error?.status).toBe(409);
 		}
+	});
+
+	test("Should create an organization and return its id if values are correct", async () => {
+		const response = await useCase.perform(correctValues);
+		expect(response).toHaveProperty("id");
+		expect(typeof response.id).toBe("bigint");
 	});
 });
