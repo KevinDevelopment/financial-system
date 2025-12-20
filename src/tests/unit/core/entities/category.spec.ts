@@ -33,6 +33,25 @@ describe("entity category tests", () => {
         );
     });
 
+    test("Should return an error if name is less than 2 characters", () => {
+        const category = () => {
+            return Category.create({ ...baseCategory, name: "A" });
+        };
+        expect(category).toThrowError(
+            new BusinessRuleViolationError("Nome deve ter entre 2 e 100 caracteres", 422),
+        );
+    });
+
+    test("Should return an error if name is more than 100 characters", () => {
+        const longName = "A".repeat(101);
+        const category = () => {
+            return Category.create({ ...baseCategory, name: longName });
+        };
+        expect(category).toThrowError(
+            new BusinessRuleViolationError("Nome deve ter entre 2 e 100 caracteres", 422),
+        );
+    });
+
     test("Should return an error if color is not provided", () => {
         const category = () => {
             return Category.create({ ...baseCategory, color: "" });
@@ -53,5 +72,24 @@ describe("entity category tests", () => {
                 422,
             ),
         );
+    });
+
+    test("Should return an error if color is not a valid hex code", () => {
+        const category = () => {
+            return Category.create({ ...baseCategory, color: "invalid-color" });
+        };
+        expect(category).toThrowError(
+            new BusinessRuleViolationError("Cor da categoria inválida", 422),
+        );
+    });
+
+    test("Should create a category with a valid RGBA color", () => {
+        const category = Category.create({ ...baseCategory, color: "rgba(255, 0, 0, 0.5)" });
+        expect(category.color.value).toEqual("rgba(255, 0, 0, 0.5)");
+    });
+
+    test("Should create a category with a valid named color", () => {
+        const category = Category.create({ ...baseCategory, color: "blue" });
+        expect(category.color.value).toEqual("blue");
     });
 });
