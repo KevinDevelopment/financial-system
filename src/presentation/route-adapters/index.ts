@@ -1,2 +1,2 @@
-export * from "./abstract-controller-adapter";
-export * from "./create-organization-controller-adapter";
+export * from "./abstract-router-adapter";
+export * from "./create-organization-router-adapter";

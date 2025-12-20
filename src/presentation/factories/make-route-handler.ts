@@ -1,8 +1,8 @@
-import { AbstractControllerAdapter } from "../route-adapters";
+import { AbstractRouteAdapter } from "../route-adapters";
 import { FastifyRequest, FastifyReply } from "fastify";
 
 export const makeRouteHandler = <TController>(
-    AdapterClass: new (controller: TController) => AbstractControllerAdapter<TController>,
+    AdapterClass: new (controller: TController) => AbstractRouteAdapter<TController>,
     controllerFactory: () => TController
 ) => {
     const controller = controllerFactory();

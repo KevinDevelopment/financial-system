@@ -1,7 +1,8 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { HttpRequest, HttpResponse } from "../ports/index.js";
+import { Serializer } from "../utils/serializer.js";
 
-export abstract class AbstractControllerAdapter<TController> {
+export abstract class AbstractRouteAdapter<TController> {
     constructor(protected readonly controller: TController) { }
 
     public async handle(request: FastifyRequest, reply: FastifyReply): Promise<void> {
@@ -34,6 +35,6 @@ export abstract class AbstractControllerAdapter<TController> {
     }
 
     protected formatResponseBody(body: any): any {
-        return body;
+        return Serializer.safeJson(body);
     }
 }
