@@ -11,8 +11,9 @@ export class Organization {
 		private readonly _id?: UniqueNumericId,
 	) { }
 
-	static create(props: OrganizationProps): Organization {
+	public static create(props: OrganizationProps): Organization {
 		const { name, cnpj, socialReason, phone, address, id } = props;
+		const nameInstance = Name.create(name);
 		let addressInstance: Address | null;
 		if (address) {
 			addressInstance = Address.create(address);
@@ -26,7 +27,7 @@ export class Organization {
 		const uniqueId = id ? UniqueNumericId.create(id) : UniqueNumericId.create();
 
 		return new Organization(
-			Name.create(name),
+			nameInstance,
 			cnpjInstance,
 			socialReason,
 			phone,
