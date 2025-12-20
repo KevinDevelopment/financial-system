@@ -4,7 +4,7 @@ import { UniqueNumericId } from "../../core/value-objects/organization";
 import { prisma } from "../config";
 import { organizationMapper } from "../mappers/organization-mapper";
 
-export class OrganizationAdapter implements OrganizationRepository {
+export class OrganizationRepositoryAdapter implements OrganizationRepository {
 	async create(organization: Organization): Promise<void> {
 		const data = organizationMapper.toPersistence(organization);
 

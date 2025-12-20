@@ -1,14 +1,14 @@
 import { CreateOrganizationUseCase } from "../../core/use-cases";
-import { OrganizationAdapter } from "../../infrastructure/adapters";
+import { OrganizationRepositoryAdapter } from "../../infrastructure/adapters";
 import { AplicationError } from "../../core/exception";
 import { HttpRequest, HttpResponse } from "../ports";
 
 export class CreateOrganizationController {
 	private readonly createOrganizationUseCase: CreateOrganizationUseCase;
 
-	constructor(organizationAdapter = new OrganizationAdapter()) {
+	constructor(organizationRepositoryAdapter = new OrganizationRepositoryAdapter()) {
 		this.createOrganizationUseCase = new CreateOrganizationUseCase(
-			organizationAdapter,
+			organizationRepositoryAdapter,
 		);
 	}
 
