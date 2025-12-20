@@ -9,7 +9,7 @@ import { Organization } from "../entities";
 export class CreateOrganizationUseCase {
 	constructor(
 		private readonly organizationRepository: OrganizationRepository,
-	) { }
+	) {}
 
 	async perform(
 		input: CreateOrganizationInputDto,
@@ -22,18 +22,18 @@ export class CreateOrganizationUseCase {
 
 		if (cnpjAlreadyExists) {
 			throw new DataAlreadyExistsError(
-				"organization already exists with this cnpj",
+				"Ja existe uma organização com este CNPJ",
 				409,
 			);
 		}
 
 		const nameAlreadyExists = await this.organizationRepository.findByName(
-			organization.name,
+			organization.name.value,
 		);
 
 		if (nameAlreadyExists) {
 			throw new DataAlreadyExistsError(
-				"organization already exists with this name",
+				"Ja existe uma organização com este nome",
 				409,
 			);
 		}

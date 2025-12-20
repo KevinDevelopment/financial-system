@@ -1,1 +1,1 @@
-export * from "./organization-adapter";
+export * from "./organization-repository-adapter";

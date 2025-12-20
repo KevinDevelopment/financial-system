@@ -1,4 +1,4 @@
-import { BusinessRuleViolationError } from "../exception";
+import { BusinessRuleViolationError } from "../../exception";
 
 export class CNPJ {
 	private readonly _value: string;

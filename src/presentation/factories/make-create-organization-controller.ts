@@ -1,3 +1,4 @@
 import { CreateOrganizationController } from "../controllers";
 
-export const makeCreateOrganizationController = () => new CreateOrganizationController();
+export const makeCreateOrganizationController = () =>
+	new CreateOrganizationController();
