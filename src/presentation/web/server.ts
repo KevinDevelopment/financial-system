@@ -1,9 +1,9 @@
 import { fastify } from "./app";
-import { organizationRoutes } from "../routes/organization-routes";
+import { registerRoutes } from "../routes";
 
 async function bootstrap() {
 	try {
-		fastify.register(organizationRoutes);
+		fastify.register(registerRoutes);
 
 		await fastify.listen({
 			port: Number(process.env.PORT) || 3000,
