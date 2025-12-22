@@ -6,6 +6,7 @@ export const categoryMapper = {
             id: category.id.value,
             name: category.name,
             color: category.color,
+            organizationId: category.organizationId.value,
             description: category.description,
         };
     },
@@ -15,6 +16,7 @@ export const categoryMapper = {
             id: row.id,
             name: row.name,
             color: row.color,
+            organizationId: row.organizationId,
             description: row.description,
         });
     },
