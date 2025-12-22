@@ -11,7 +11,7 @@ export class CreateCategoryUseCase {
 
         const nameAlreadyExists = await this.categoryRepository.findByName(
             category.name.value,
-            input.organizationId
+            category.organizationId.value
         );
 
         if (nameAlreadyExists) {
@@ -21,7 +21,7 @@ export class CreateCategoryUseCase {
             );
         }
 
-        await this.categoryRepository.create(category, input.organizationId);
+        await this.categoryRepository.create(category);
 
         return {
             id: category.id.value,

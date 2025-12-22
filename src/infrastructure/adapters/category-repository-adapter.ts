@@ -4,7 +4,7 @@ import { prisma } from "../config";
 import { categoryMapper } from "../mappers";
 
 export class CategoryRepositoryAdapter implements CategoryRepository {
-    public async create(category: Category, organizationId: bigint): Promise<void> {
+    public async create(category: Category): Promise<void> {
         const data = categoryMapper.toPersistence(category);
 
         await prisma.category.create({
@@ -13,7 +13,7 @@ export class CategoryRepositoryAdapter implements CategoryRepository {
                 name: data.name.value,
                 color: data.color.value,
                 ...(data.description && { description: data.description }),
-                organizationId,
+                organizationId: data.organizationId,
 
             }
         })
