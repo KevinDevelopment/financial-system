@@ -6,7 +6,9 @@ import { HttpRequest, HttpResponse } from "../ports";
 export class CreateOrganizationController {
 	private readonly createOrganizationUseCase: CreateOrganizationUseCase;
 
-	constructor(organizationRepositoryAdapter = new OrganizationRepositoryAdapter()) {
+	constructor(
+		organizationRepositoryAdapter = new OrganizationRepositoryAdapter(),
+	) {
 		this.createOrganizationUseCase = new CreateOrganizationUseCase(
 			organizationRepositoryAdapter,
 		);

@@ -1,5 +1,5 @@
 export interface CreateCategoryInputDto {
-	organizationId: bigint,
+	organizationId: bigint;
 	name: string;
 	color: string;
 	description?: string;

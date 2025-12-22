@@ -10,7 +10,7 @@ export class Category {
 		private readonly _organizationId: OrganizationId,
 		private readonly _description?: string,
 		private readonly _id?: UniqueNumericId,
-	) { }
+	) {}
 
 	public static create(props: CategoryProps): Category {
 		const { name, color, organizationId, description, id } = props;
@@ -25,7 +25,13 @@ export class Category {
 			);
 		}
 
-		return new Category(nameInstance, colorInstance, organizationInstance, description, uniqueId);
+		return new Category(
+			nameInstance,
+			colorInstance,
+			organizationInstance,
+			description,
+			uniqueId,
+		);
 	}
 
 	public get id(): UniqueNumericId {
@@ -45,6 +51,6 @@ export class Category {
 	}
 
 	public get organizationId(): OrganizationId {
-		return this._organizationId
+		return this._organizationId;
 	}
 }

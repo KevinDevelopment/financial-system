@@ -50,7 +50,7 @@ describe("create organization use case tests", () => {
 
 	test("Should return an error if organization exists with same name", async () => {
 		const organization = Organization.create({
-			...correctValues,			
+			...correctValues,
 			cnpj: "85.169.115/0001-67",
 		});
 		repository.create(organization);

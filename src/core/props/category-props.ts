@@ -1,7 +1,7 @@
 export interface CategoryProps {
 	name: string;
 	color: string;
-	organizationId: unknown,
+	organizationId: unknown;
 	description?: string;
 	id?: bigint;
 }
