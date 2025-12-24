@@ -10,13 +10,15 @@ export class Category {
 		private readonly _organizationId: OrganizationId,
 		private readonly _description?: string,
 		private readonly _id?: UniqueNumericId,
-	) {}
+	) { }
 
 	public static create(props: CategoryProps): Category {
 		const { name, color, organizationId, description, id } = props;
 		const nameInstance = Name.create(name);
 		const colorInstance = Color.create(color);
-		const organizationInstance = OrganizationId.create(organizationId);
+		const organizationInstance = OrganizationId.create(
+			this.parseBigInt(organizationId, "organizationId"),
+		);
 		const uniqueId = id ? UniqueNumericId.create(id) : UniqueNumericId.create();
 		if (description && description.length > 255) {
 			throw new BusinessRuleViolationError(
@@ -52,5 +54,13 @@ export class Category {
 
 	public get organizationId(): OrganizationId {
 		return this._organizationId;
+	}
+
+	private static parseBigInt(value: unknown, field: string): bigint {
+		if (typeof value === "string" || typeof value === "number") return BigInt(value);
+		throw new BusinessRuleViolationError(
+			`${field} deve ser um número inteiro válido`,
+			422,
+		);
 	}
 }

@@ -4,6 +4,7 @@ export class OrganizationId {
 	private constructor(private readonly _value: bigint) {}
 
 	public static create(value: unknown): OrganizationId {
+		console.log(typeof value, value);
 		if (value === null || value === undefined) {
 			throw new BusinessRuleViolationError(
 				"Obrigatório informar a organização ao qual a categoria pertence",
