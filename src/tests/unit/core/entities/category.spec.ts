@@ -1,7 +1,7 @@
 import { expect, test, describe, beforeEach } from "vitest";
-import { CategoryProps } from "../../../../core/props";
-import { Category } from "../../../../core/entities";
-import { BusinessRuleViolationError } from "../../../../core/exception";
+import { CategoryProps } from "../../../../core/domain/props";
+import { Category } from "../../../../core/domain/entities/category";
+import { BusinessRuleViolationError } from "../../../../core/domain/errors";
 
 let baseCategory: CategoryProps;
 
@@ -10,6 +10,7 @@ beforeEach(() => {
 		id: 123n,
 		name: "Categoria teste",
 		color: "#000000",
+		organizationId: 656565656n,
 		description: "Descrição da categoria teste",
 	});
 });
@@ -20,7 +21,7 @@ describe("entity category tests", () => {
 
 		expect(category.name.value).toEqual("Categoria teste");
 		expect(category.id?.value).toEqual(123n);
-		expect(category.color.value).toEqual("#000000");
+		expect(category.color.value).toEqual("#321e1eff");
 		expect(category.description).toEqual("Descrição da categoria teste");
 	});
 

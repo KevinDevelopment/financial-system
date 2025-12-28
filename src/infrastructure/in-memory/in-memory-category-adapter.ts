@@ -1,5 +1,5 @@
-import { Category } from "../../core/entities";
-import { CategoryRepository } from "../../core/repositories";
+import { Category } from "../../core/domain/entities";
+import { CategoryRepository } from "../../core/aplication/repositories";
 
 export class InMemoryCategoryAdapter implements CategoryRepository {
 	private readonly databaseInMemory: Array<Category> = [];

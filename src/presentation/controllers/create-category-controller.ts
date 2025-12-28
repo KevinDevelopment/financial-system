@@ -1,6 +1,6 @@
-import { CreateCategoryUseCase } from "../../core/use-cases";
+import { CreateCategoryUseCase } from "../../core/aplication/use-cases";
 import { CategoryRepositoryAdapter } from "../../infrastructure/adapters";
-import { AplicationError } from "../../core/exception";
+import { AplicationError } from "../../core/domain/errors";
 import { HttpRequest, HttpResponse } from "../ports";
 
 export class CreateCategoryController {

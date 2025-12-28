@@ -1,10 +1,10 @@
 import { expect, test, describe, beforeEach } from "vitest";
-import { Address } from "../../../../core/value-objects/organization";
-import { AddressProps } from "../../../../core/props";
+import { Address } from "../../../../core/domain/value-objects/organization";
+import { AddressProps } from "../../../../core/domain/props";
 import {
 	BusinessRuleViolationError,
 	MissingDataError,
-} from "../../../../core/exception";
+} from "../../../../core/domain/errors";
 
 let baseAddress: AddressProps;
 

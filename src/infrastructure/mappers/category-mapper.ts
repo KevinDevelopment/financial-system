@@ -1,4 +1,4 @@
-import { Category } from "../../core/entities";
+import { Category } from "../../core/domain/entities";
 
 export const categoryMapper = {
 	toPersistence(category: Category) {

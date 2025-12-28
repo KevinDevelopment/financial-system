@@ -1,9 +1,9 @@
 import { expect, test, describe, beforeEach } from "vitest";
-import { OrganizationProps } from "../../../../core/props";
-import { Organization } from "../../../../core/entities";
-import { AddressProps } from "../../../../core/props";
-import { Address } from "../../../../core/value-objects/organization";
-import { BusinessRuleViolationError } from "../../../../core/exception";
+import { OrganizationProps } from "../../../../core/domain/props";
+import { Organization } from "../../../../core/domain/entities";
+import { AddressProps } from "../../../../core/domain/props";
+import { Address } from "../../../../core/domain/value-objects/organization";
+import { BusinessRuleViolationError } from "../../../../core/domain/errors";
 
 let baseAddress: AddressProps;
 let baseOrganization: OrganizationProps;
