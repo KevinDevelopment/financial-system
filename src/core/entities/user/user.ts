@@ -1,9 +1,13 @@
-import { UniqueNumericId } from "../value-objects/global";
+import { UniqueNumericId } from "../../value-objects/global";
+import { Email, Name } from "../../value-objects/user";
+import { Role } from "./role";
 
 export class User {
     private constructor(
-        private readonly email: string,
-        private readonly name: string,
+        private readonly name: Name,
+        private readonly email: Email,
+        private readonly role: Role,
+        private readonly hashPassword: string,
         private readonly id?: UniqueNumericId
     ) { }
 }
