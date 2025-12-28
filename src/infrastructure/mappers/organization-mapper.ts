@@ -1,4 +1,4 @@
-import { Organization } from "../../core/domain/entities";
+import { Organization } from "../../core/domain/entities/organization";
 
 export const organizationMapper = {
 	toPersistence(organization: Organization) {

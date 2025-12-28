@@ -1,4 +1,4 @@
-import { Category } from "../../core/domain/entities";
+import { Category } from "../../core/domain/entities/category";
 import { CategoryRepository } from "../../core/aplication/repositories";
 
 export class InMemoryCategoryAdapter implements CategoryRepository {

@@ -57,7 +57,7 @@ export class Category {
 	}
 
 	private static parseBigInt(value: unknown, field: string): bigint {
-		if (typeof value === "string" || typeof value === "number") return BigInt(value);
+		if (typeof value === "string" || typeof value === "bigint") return BigInt(value);
 		throw new BusinessRuleViolationError(
 			`${field} deve ser um número inteiro válido`,
 			422,

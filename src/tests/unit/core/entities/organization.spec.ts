@@ -1,6 +1,6 @@
 import { expect, test, describe, beforeEach } from "vitest";
 import { OrganizationProps } from "../../../../core/domain/props";
-import { Organization } from "../../../../core/domain/entities";
+import { Organization } from "../../../../core/domain/entities/organization";
 import { AddressProps } from "../../../../core/domain/props";
 import { Address } from "../../../../core/domain/value-objects/organization";
 import { BusinessRuleViolationError } from "../../../../core/domain/errors";

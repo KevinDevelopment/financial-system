@@ -10,7 +10,7 @@ beforeEach(() => {
 		id: 123n,
 		name: "Categoria teste",
 		color: "#000000",
-		organizationId: 656565656n,
+		organizationId: 656565,
 		description: "Descrição da categoria teste",
 	});
 });
@@ -21,7 +21,7 @@ describe("entity category tests", () => {
 
 		expect(category.name.value).toEqual("Categoria teste");
 		expect(category.id?.value).toEqual(123n);
-		expect(category.color.value).toEqual("#321e1eff");
+		expect(category.color.value).toEqual("#000000");
 		expect(category.description).toEqual("Descrição da categoria teste");
 	});
 

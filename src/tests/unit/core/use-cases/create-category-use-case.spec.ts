@@ -3,13 +3,14 @@ import { InMemoryCategoryAdapter } from "../../../../infrastructure/in-memory";
 import { CreateCategoryUseCase } from "../../../../core/aplication/use-cases/create-category-use-case";
 import { CategoryProps } from "../../../../core/domain/props";
 import { DataAlreadyExistsError } from "../../../../core/domain/errors";
-import { Category } from "../../../../core/domain/entities";
+import { Category } from "../../../../core/domain/entities/category";
 
 let repository: InMemoryCategoryAdapter;
 let useCase: CreateCategoryUseCase;
 const correctValues: CategoryProps = {
 	name: "Categoria teste",
 	color: "#000000",
+	organizationId: 656565,
 	description: "Descrição da categoria teste",
 };
 
