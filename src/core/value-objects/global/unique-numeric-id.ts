@@ -1,4 +1,4 @@
-import { MissingDataError } from "../exception";
+import { MissingDataError } from "../../exception";
 /**
  * Classe que gera ou encapsula um Snowflake ID.
  * - EPOCH define a data a partir da qual contamos o tempo (ex: 2022-01-01T00:00:00Z).

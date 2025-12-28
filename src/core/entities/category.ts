@@ -1,4 +1,4 @@
-import { UniqueNumericId } from "../value-objects/unique-numeric-id";
+import { UniqueNumericId } from "../value-objects/global";
 import { BusinessRuleViolationError } from "../exception";
 import { CategoryProps } from "../props";
 import { Name, Color, OrganizationId } from "../value-objects/category";
