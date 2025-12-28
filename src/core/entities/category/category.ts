@@ -1,7 +1,7 @@
-import { UniqueNumericId } from "../value-objects/global";
-import { BusinessRuleViolationError } from "../exception";
-import { CategoryProps } from "../props";
-import { Name, Color, OrganizationId } from "../value-objects/category";
+import { UniqueNumericId } from "../../value-objects/global";
+import { BusinessRuleViolationError } from "../../exception";
+import { CategoryProps } from "../../props";
+import { Name, Color, OrganizationId } from "../../value-objects/category";
 
 export class Category {
 	private constructor(

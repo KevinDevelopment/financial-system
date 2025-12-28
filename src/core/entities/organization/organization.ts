@@ -2,9 +2,9 @@ import {
 	CNPJ,
 	Address,
 	Name,
-} from "../value-objects/organization";
-import { UniqueNumericId } from "../value-objects/global";
-import { OrganizationProps } from "../props";
+} from "../../value-objects/organization";
+import { UniqueNumericId } from "../../value-objects/global";
+import { OrganizationProps } from "../../props";
 
 export class Organization {
 	private constructor(

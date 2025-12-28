@@ -4,7 +4,7 @@ import {
 	CreateOrganizationOutputDto,
 } from "../dto";
 import { DataAlreadyExistsError } from "../exception";
-import { Organization } from "../entities";
+import { Organization } from "../entities/organization";
 
 export class CreateOrganizationUseCase {
 	constructor(

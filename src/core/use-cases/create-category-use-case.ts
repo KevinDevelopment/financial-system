@@ -1,10 +1,10 @@
 import { CategoryRepository } from "../repositories";
 import { CreateCategoryInputDto, CreateCategoryOutputDto } from "../dto";
 import { DataAlreadyExistsError } from "../exception";
-import { Category } from "../entities";
+import { Category } from "../entities/category";
 
 export class CreateCategoryUseCase {
-	constructor(private readonly categoryRepository: CategoryRepository) {}
+	constructor(private readonly categoryRepository: CategoryRepository) { }
 
 	async perform(
 		input: CreateCategoryInputDto,
