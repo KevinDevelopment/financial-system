@@ -1,4 +1,4 @@
-import { UniqueNumericId } from "../../value-objects/global";
+import { UniqueNumericId, OrganizationId } from "../../value-objects/global";
 import { Email, Name, PasswordHash } from "../../value-objects/user";
 import { UserProps } from "../../props";
 import { Role } from "../../value-objects/user";
@@ -9,16 +9,18 @@ export class User {
         private readonly _email: Email,
         private readonly _role: Role,
         private readonly _hash: PasswordHash,
+        private readonly _organizationId: OrganizationId,
         private readonly _id?: UniqueNumericId
     ) { }
 
     public static create(props: UserProps): User {
-        const { id, name, email, role, hash } = props;
+        const { id, name, email, role, hash, organizationId } = props;
 
         const uniqueId = id ? UniqueNumericId.create(id) : UniqueNumericId.create();
         const nameInstance = Name.create(name);
         const emailInstance = Email.create(email);
         const roleInstance = Role.create(role);
+        const organizationInstance = OrganizationId.create(organizationId);
         const passwordInstance = PasswordHash.create(hash);
 
         return new User(
@@ -26,6 +28,7 @@ export class User {
             emailInstance,
             roleInstance,
             passwordInstance,
+            organizationInstance,
             uniqueId
         )
     }
@@ -48,5 +51,9 @@ export class User {
 
     public get hash(): PasswordHash {
         return this._hash;
+    }
+
+    public get organizationId(): OrganizationId {
+        return this._organizationId
     }
 }
