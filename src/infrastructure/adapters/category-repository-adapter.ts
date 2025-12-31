@@ -10,8 +10,8 @@ export class CategoryRepositoryAdapter implements CategoryRepository {
 		await prisma.category.create({
 			data: {
 				id: data.id,
-				name: data.name.value,
-				color: data.color.value,
+				name: data.name,
+				color: data.color,
 				...(data.description && { description: data.description }),
 				organizationId: data.organizationId,
 			},

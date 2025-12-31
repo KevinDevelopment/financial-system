@@ -76,8 +76,8 @@ model User {
   id             BigInt        @id
   name           String        @db.VarChar(80)
   email          String        @db.VarChar(254)
+  role           Int           @db.SmallInt
   hashPassword   String        @map("hash_password") @db.VarChar(100)
-  document       String        @db.VarChar(14)
   organizationId BigInt        @map("organization_id")
   organization   Organization  @relation(fields: [organizationId], references: [id])
   transactions   Transaction[]

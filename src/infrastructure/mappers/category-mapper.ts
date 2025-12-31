@@ -4,8 +4,8 @@ export const categoryMapper = {
 	toPersistence(category: Category) {
 		return {
 			id: category.id.value,
-			name: category.name,
-			color: category.color,
+			name: category.name.value,
+			color: category.color.value,
 			organizationId: category.organizationId.value,
 			description: category.description,
 		};
