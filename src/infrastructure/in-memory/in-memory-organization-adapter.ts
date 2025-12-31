@@ -1,4 +1,4 @@
-import { Organization } from "../../core/domain/entities";
+import { Organization } from "../../core/domain/entities/organization";
 import { OrganizationRepository } from "../../core/aplication/repositories";
 
 export class InMemoryOrganizationAdapter implements OrganizationRepository {

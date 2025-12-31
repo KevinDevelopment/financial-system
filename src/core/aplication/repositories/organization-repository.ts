@@ -1,4 +1,4 @@
-import { Organization } from "../domain/entities";
+import { Organization } from "../../domain/entities/organization";
 
 export interface OrganizationRepository {
 	create(organization: Organization): Promise<void>;

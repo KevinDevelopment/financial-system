@@ -1,4 +1,4 @@
-import { BusinessRuleViolationError } from "../domain/errors";
+import { BusinessRuleViolationError } from "../../domain/errors";
 
 export class PasswordStrengthPolicy {
     static validate(password: string): void {
