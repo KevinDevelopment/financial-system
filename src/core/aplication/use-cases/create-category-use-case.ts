@@ -4,7 +4,7 @@ import { DataAlreadyExistsError } from "../../domain/errors";
 import { Category } from "../../domain/entities/category";
 
 export class CreateCategoryUseCase {
-	constructor(private readonly categoryRepository: CategoryRepository) { }
+	constructor(private readonly categoryRepository: CategoryRepository) {}
 
 	async perform(
 		input: CreateCategoryInputDto,

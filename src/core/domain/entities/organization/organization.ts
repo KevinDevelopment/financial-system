@@ -1,8 +1,4 @@
-import {
-	CNPJ,
-	Address,
-	Name,
-} from "../../value-objects/organization";
+import { CNPJ, Address, Name } from "../../value-objects/organization";
 import { UniqueNumericId } from "../../value-objects/global";
 import { OrganizationProps } from "../../props";
 
@@ -14,7 +10,7 @@ export class Organization {
 		private readonly _phone?: string,
 		private readonly _address?: Address,
 		private readonly _id?: UniqueNumericId,
-	) { }
+	) {}
 
 	public static create(props: OrganizationProps): Organization {
 		const { name, cnpj, socialReason, phone, address, id } = props;
