@@ -3,5 +3,6 @@ export interface UserProps {
     name: string;
     email: string;
     role: number,
-    password: string;
+    organizationId: unknown;
+    hash: string;
 }
