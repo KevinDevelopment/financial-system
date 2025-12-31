@@ -12,7 +12,7 @@ beforeEach(() => {
         email: "kevinjones@outlook.com",
         role: 1,
         organizationId: 5454545n,
-        hash: "65j6k5jk65k6j56ij565jj6"
+        passwordHash: "65j6k5jk65k6j56ij565jj6"
     })
 });
 
@@ -84,7 +84,7 @@ describe("entity user tests", () => {
 
     test("Should return an error if password hash is not provided", () => {
         const user = () => {
-            return User.create({ ...baseUser, hash: "" });
+            return User.create({ ...baseUser, passwordHash: "" });
         };
         expect(user).toThrowError(new BusinessRuleViolationError("Password hash não pode ser vazio", 422))
     });

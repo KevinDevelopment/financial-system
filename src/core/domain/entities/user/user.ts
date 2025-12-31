@@ -8,20 +8,20 @@ export class User {
         private readonly _name: Name,
         private readonly _email: Email,
         private readonly _role: Role,
-        private readonly _hash: PasswordHash,
+        private readonly _passwordHash: PasswordHash,
         private readonly _organizationId: OrganizationId,
         private readonly _id?: UniqueNumericId
     ) { }
 
     public static create(props: UserProps): User {
-        const { id, name, email, role, hash, organizationId } = props;
+        const { id, name, email, role, passwordHash, organizationId } = props;
 
         const uniqueId = id ? UniqueNumericId.create(id) : UniqueNumericId.create();
         const nameInstance = Name.create(name);
         const emailInstance = Email.create(email);
         const roleInstance = Role.create(role);
         const organizationInstance = OrganizationId.create(organizationId);
-        const passwordInstance = PasswordHash.create(hash);
+        const passwordInstance = PasswordHash.create(passwordHash);
 
         return new User(
             nameInstance,
@@ -49,8 +49,8 @@ export class User {
         return this._role
     }
 
-    public get hash(): PasswordHash {
-        return this._hash;
+    public get passwordHash(): PasswordHash {
+        return this._passwordHash
     }
 
     public get organizationId(): OrganizationId {

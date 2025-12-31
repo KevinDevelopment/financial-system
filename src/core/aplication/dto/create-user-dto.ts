@@ -2,7 +2,7 @@ export interface CreateUserInputDto {
     name: string;
     email: string;
     role: number;
-    hash: string;
+    password: string;
     organizationId: bigint;
 }
 
