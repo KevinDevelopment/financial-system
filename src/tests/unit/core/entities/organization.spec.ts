@@ -40,6 +40,13 @@ describe("entity organization tests", () => {
 		expect(organization.cnpj?.value).toEqual("91054462000147");
 		expect(organization.socialReason).toEqual("Empresa teste do Goku");
 		expect(organization.phone).toEqual("5511965783456");
+		expect(organization.address.street).toEqual("Rua José da Silva");
+		expect(organization.address.city).toEqual("São Paulo");
+		expect(organization.address.country).toEqual("Brasil");
+		expect(organization.address.state).toEqual("São Paulo");
+		expect(organization.address.complement).toEqual("Casa 200");
+		expect(organization.address.neighborhood).toEqual("Vila Santa Terezinha");
+		expect(organization.address.number).toEqual(40);
 		expect(isEqualAddress).toBeTruthy();
 	});
 

@@ -10,7 +10,7 @@ beforeEach(() => {
 		id: 123n,
 		name: "Categoria teste",
 		color: "#000000",
-		organizationId: 656565,
+		organizationId: 656565n,
 		description: "Descrição da categoria teste",
 	});
 });

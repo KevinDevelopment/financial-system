@@ -10,7 +10,7 @@ let useCase: CreateCategoryUseCase;
 const correctValues: CategoryProps = {
 	name: "Categoria teste",
 	color: "#000000",
-	organizationId: 656565,
+	organizationId: 656565n,
 	description: "Descrição da categoria teste",
 };
 
@@ -20,6 +20,15 @@ beforeEach(() => {
 });
 
 describe("create category use case tests", () => {
+	test("Should create a category and return its id if values are correct", async () => {
+		const response = await useCase.perform(correctValues);
+		expect(response).toHaveProperty("id");
+		expect(typeof response.id).toBe("bigint");
+		expect(response.name).toBe(correctValues.name);
+		expect(response.color).toBe(correctValues.color);
+		expect(response.description).toBe(correctValues.description);
+	});
+
 	test("Should call the create method once", async () => {
 		const spyMethodCreate = vitest.spyOn(repository, "create");
 		await useCase.perform(correctValues);
@@ -37,14 +46,5 @@ describe("create category use case tests", () => {
 			expect(error?.message).toBe("Ja existe uma categoria com este nome");
 			expect(error?.status).toBe(409);
 		}
-	});
-
-	test("Should create a category and return its id if values are correct", async () => {
-		const response = await useCase.perform(correctValues);
-		expect(response).toHaveProperty("id");
-		expect(typeof response.id).toBe("bigint");
-		expect(response.name).toBe(correctValues.name);
-		expect(response.color).toBe(correctValues.color);
-		expect(response.description).toBe(correctValues.description);
 	});
 });
