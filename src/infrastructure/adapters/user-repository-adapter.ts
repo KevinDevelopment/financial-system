@@ -13,7 +13,7 @@ export class UserRepositoryAdapter implements UserRepository {
 				name: data.name,
 				email: data.email,
 				role: data.role,
-				hashPassword: data.passwordHash,
+				passwordHash: data.passwordHash,
 				organization: {
 					connect: {
 						id: data.organizationId,
@@ -33,6 +33,8 @@ export class UserRepositoryAdapter implements UserRepository {
 				organizationId,
 			},
 		});
+
+        console.log(user)
 
 		if (!user) return null;
 

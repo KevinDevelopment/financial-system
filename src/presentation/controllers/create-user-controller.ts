@@ -25,7 +25,7 @@ export class CreateUserController {
 				name: httpRequest.body.name,
 				email: httpRequest.body.email,
 				role: httpRequest.body.role,
-				password: httpRequest.body.organizationId,
+				password: httpRequest.body.password,
 				organizationId: httpRequest.body.organizationId,
 			});
 
@@ -35,6 +35,7 @@ export class CreateUserController {
 				body: result,
 			};
 		} catch (error) {
+            console.error(error)
 			if (error instanceof AplicationError) {
 				return {
 					code: error?.status,
