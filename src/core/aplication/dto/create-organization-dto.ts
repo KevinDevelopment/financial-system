@@ -1,5 +1,3 @@
-import { StatusCode } from "../shared";
-
 export interface CreateOrganizationInputDto {
 	name: string;
 	cnpj: string;
