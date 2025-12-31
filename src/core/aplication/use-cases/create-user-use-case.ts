@@ -14,6 +14,7 @@ export class CreateUserUseCase {
 	async perform(input: CreateUserInputDto): Promise<CreateUserOutputDto> {
 		const emailAlreadyExists = await this.userRepository.findByEmail(
 			input.email,
+			input.organizationId
 		);
 
 		if (emailAlreadyExists) {
