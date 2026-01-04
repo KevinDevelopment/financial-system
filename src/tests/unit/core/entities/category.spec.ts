@@ -102,4 +102,70 @@ describe("entity category tests", () => {
 		const category = Category.create({ ...baseCategory, color: "blue" });
 		expect(category.color.value).toEqual("blue");
 	});
+
+	test("Should return a valid organiozation id if is it a number", () => {
+		const category = Category.create({ ...baseCategory, id: 10 as any });
+		expect(category.organizationId.value).toBeTypeOf("bigint");
+	});
+
+	test("Should return an error if organization id less than 0", async () => {
+		const category = () => {
+			return Category.create({ ...baseCategory, organizationId: 0n });
+		};
+		expect(category).toThrowError(
+			new BusinessRuleViolationError(
+				"OrganizationId inválido",
+				422,
+			),
+		);
+	});
+
+	test("Should return an error if organization id is null", async () => {
+		const category = () => {
+			return Category.create({ ...baseCategory, organizationId: null });
+		};
+		expect(category).toThrowError(
+			new BusinessRuleViolationError(
+				"Obrigatório informar a organização",
+				422,
+			),
+		);
+	});
+
+	test("Should return an error if organization id is not a valid number", async () => {
+		const category = () => {
+			return Category.create({ ...baseCategory, organizationId: NaN });
+		};
+		expect(category).toThrowError(
+			new BusinessRuleViolationError(
+				"OrganizationId deve ser um número inteiro",
+				422,
+			),
+		);
+	});
+
+	test("Should return an error if organization id is a string", async () => {
+		const category = () => {
+			return Category.create({ ...baseCategory, organizationId: "fddfdffdf" });
+		};
+		expect(category).toThrowError(
+			new BusinessRuleViolationError(
+				"OrganizationId deve ser um número inteiro válido",
+				422,
+			),
+		);
+	});
+
+
+	test("Should return an error if organization id is not valid", async () => {
+		const category = () => {
+			return Category.create({ ...baseCategory, organizationId: {} });
+		};
+		expect(category).toThrowError(
+			new BusinessRuleViolationError(
+				"OrganizationId inválido",
+				422,
+			),
+		);
+	});
 });
