@@ -9,9 +9,16 @@ export class CreateUserUseCase {
 	constructor(
 		private readonly userRepository: UserRepository,
 		private readonly passwordHasher: PasswordHasher,
-	) {}
+	) { }
 
 	async perform(input: CreateUserInputDto): Promise<CreateUserOutputDto> {
+		const user = User.create({
+			name: input.name,
+			email: input.email,
+			role: input.role,
+			organizationId: input.organizationId,
+		});
+
 		const emailAlreadyExists = await this.userRepository.findByEmail(
 			input.email,
 			input.organizationId
@@ -24,19 +31,14 @@ export class CreateUserUseCase {
 			);
 		}
 
+		console.log(input.password)
 		PasswordStrengthPolicy.validate(input.password);
 
 		const passwordHash = await this.passwordHasher.hash(input.password);
 
-		const user = User.create({
-			name: input.name,
-			email: input.email,
-			role: input.role,
-			passwordHash,
-			organizationId: input.organizationId,
-		});
+		const userWithPassword = user.definePassword(passwordHash);
 
-		await this.userRepository.create(user);
+		await this.userRepository.create(userWithPassword);
 
 		return {
 			id: user.id.value,

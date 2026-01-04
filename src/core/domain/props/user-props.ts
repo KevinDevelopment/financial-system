@@ -4,5 +4,5 @@ export interface UserProps {
 	email: string;
 	role: number;
 	organizationId: unknown;
-	passwordHash: string;
+	passwordHash?: string;
 }

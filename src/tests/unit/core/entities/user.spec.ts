@@ -101,15 +101,6 @@ describe("entity user tests", () => {
 		);
 	});
 
-	test("Should return an error if password hash is not provided", () => {
-		const user = () => {
-			return User.create({ ...baseUser, passwordHash: "" });
-		};
-		expect(user).toThrowError(
-			new BusinessRuleViolationError("Password hash não pode ser vazio", 422),
-		);
-	});
-
 	test("Should return an error ir role is invalid", () => {
 		const user = () => {
 			return User.create({ ...baseUser, role: 6 });

@@ -27,6 +27,9 @@ export class UserRepositoryAdapter implements UserRepository {
 		email: string,
 		organizationId: bigint,
 	): Promise<User | null> {
+		console.log({
+			email, organizationId,
+		})
 		const user = await prisma.user.findFirst({
 			where: {
 				email,
