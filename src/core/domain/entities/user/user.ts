@@ -70,7 +70,7 @@ export class User {
 		return User.create({
 			...this.toProps(),
 			passwordHash
-		})
+		});
 	}
 }
 

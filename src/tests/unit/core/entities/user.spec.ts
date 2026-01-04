@@ -109,4 +109,14 @@ describe("entity user tests", () => {
 			new BusinessRuleViolationError("Role inválida", 422),
 		);
 	});
+
+	test("Shoulr return an error if password is already defined", () => {
+		const user = User.create(baseUser);
+		const definePassword = () => {
+			user.definePassword("newpasswordhash12345");
+		};
+		expect(definePassword).toThrowError(
+			new BusinessRuleViolationError("Usuário já possui senha definida", 422),
+		);
+	});	
 });

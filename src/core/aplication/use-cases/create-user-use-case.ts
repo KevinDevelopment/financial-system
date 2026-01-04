@@ -31,11 +31,8 @@ export class CreateUserUseCase {
 			);
 		}
 
-		console.log(input.password)
 		PasswordStrengthPolicy.validate(input.password);
-
 		const passwordHash = await this.passwordHasher.hash(input.password);
-
 		const userWithPassword = user.definePassword(passwordHash);
 
 		await this.userRepository.create(userWithPassword);
