@@ -24,20 +24,13 @@ export class UserRepositoryAdapter implements UserRepository {
 	}
 
 	async findByEmail(
-		email: string,
-		organizationId: bigint,
+		email: string
 	): Promise<User | null> {
-		console.log({
-			email, organizationId,
-		})
 		const user = await prisma.user.findFirst({
 			where: {
-				email,
-				organizationId,
+				email
 			},
 		});
-
-        console.log(user)
 
 		if (!user) return null;
 

@@ -20,8 +20,7 @@ export class CreateUserUseCase {
 		});
 
 		const emailAlreadyExists = await this.userRepository.findByEmail(
-			input.email,
-			input.organizationId
+			input.email
 		);
 
 		if (emailAlreadyExists) {

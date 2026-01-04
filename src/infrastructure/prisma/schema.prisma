@@ -73,18 +73,34 @@ model Account {
 }
 
 model User {
-  id             BigInt        @id
-  name           String        @db.VarChar(80)
-  email          String        @db.VarChar(254)
-  role           Int           @db.SmallInt
-  passwordHash   String        @map("password_hash") @db.VarChar(100)
-  organizationId BigInt        @map("organization_id")
-  organization   Organization  @relation(fields: [organizationId], references: [id])
+  id             BigInt         @id
+  name           String         @db.VarChar(80)
+  email          String         @db.VarChar(254)
+  role           Int            @db.SmallInt
+  passwordHash   String         @map("password_hash") @db.VarChar(100)
+  organizationId BigInt         @map("organization_id")
+  organization   Organization   @relation(fields: [organizationId], references: [id])
   transactions   Transaction[]
-  createdAt      DateTime      @default(now()) @map("created_at")
-  updatedAt      DateTime      @updatedAt @map("updated_at")
+  refreshTokens  RefreshToken[]
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
 
   @@map("users")
+}
+
+model RefreshToken {
+  id             BigInt    @id
+  userId         BigInt    @map("user_id")
+  organizationId BigInt    @map("organization_id")
+  expiresAt      DateTime  @map("expires_at")
+  revokedAt      DateTime? @map("revoked_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@index([revokedAt])
+  @@map("refresh_tokens")
 }
 
 model Address {
