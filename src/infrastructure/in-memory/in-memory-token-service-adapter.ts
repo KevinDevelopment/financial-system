@@ -1,6 +1,6 @@
 import { TokenService } from "../../core/aplication/services";
 
-export class InMemoryTokenService implements TokenService {
+export class InMemoryTokenServiceAdapter implements TokenService {
     async generate(): Promise<string> {
         return "fake-token";
     }
