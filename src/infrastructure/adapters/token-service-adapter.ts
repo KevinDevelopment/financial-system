@@ -17,7 +17,7 @@ export class TokenServiceAdapter implements TokenService {
 
         const safePayload = this.serializeBigInt(payload);
 
-        return jwt.sign(safePayload, secret!, { expiresIn, algorithm: "HS256" });
+        return jwt.sign(safePayload, secret!, { expiresIn, algorithm: process.env.TOKEN_ALGORITHM as jwt.Algorithm });
     }
 
     async verify<TPayload>(type: "access" | "refresh", token: string): Promise<TPayload> {
