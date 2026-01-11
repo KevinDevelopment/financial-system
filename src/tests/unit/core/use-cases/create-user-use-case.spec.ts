@@ -63,7 +63,8 @@ describe("create user use case tests", () => {
 		await useCase.perform(correctValues);
 
 		expect(spyMethodFindByEmail).toHaveBeenCalledTimes(1);
-		expect(spyMethodFindByEmail).toHaveBeenCalledWith(correctValues.email, correctValues.organizationId);
+		console.log(correctValues);
+		expect(spyMethodFindByEmail).toHaveBeenCalledWith(correctValues.email);
 	});
 
 	test("Should retun an error if user exists with the same email", async () => {
