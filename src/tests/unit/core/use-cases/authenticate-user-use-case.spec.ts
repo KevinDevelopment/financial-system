@@ -91,4 +91,35 @@ describe("authenticate user use case tests", () => {
 
         await expect(useCase.perform(input)).rejects.toBeInstanceOf(InvalidCredentialsError);
     });
+
+    test("Should call userRepository.findByEmail with the correct email", async () => {
+        const user = User.create(userProps);
+        const passwordHash = await passwordHasher.hash("password123");
+        const userWithPassword = user.definePassword(passwordHash);
+        await userRepository.create(userWithPassword);
+
+        const spyFindByEmail = vitest.spyOn(userRepository, "findByEmail");
+
+        await useCase.perform(correctInput);
+
+        expect(spyFindByEmail).toHaveBeenCalledTimes(1);
+        expect(spyFindByEmail).toHaveBeenCalledWith(correctInput.email);
+    });
+
+    test("Should call passwordHasher.compare with the correct values", async () => {        
+        const user = User.create(userProps);
+        const passwordHash = await passwordHasher.hash("password123");
+        const userWithPassword = user.definePassword(passwordHash);
+        await userRepository.create(userWithPassword);
+
+        const spyCompare = vitest.spyOn(passwordHasher, "compare");
+
+        await useCase.perform(correctInput);
+
+        expect(spyCompare).toHaveBeenCalledTimes(1);
+        expect(spyCompare).toHaveBeenCalledWith(
+            correctInput.password,
+            userWithPassword.passwordHash.value
+        );
+    }); 
 });         
