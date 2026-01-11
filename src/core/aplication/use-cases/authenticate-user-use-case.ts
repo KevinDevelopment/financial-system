@@ -17,7 +17,7 @@ export class AuthenticateUserUseCase {
             throw new MissingDataError("Email e senha são obrigatórios para fazer o login", 400)
         }
 
-        const user = await this.userRepository.findByEmail(input.email);
+        const user = await this.userRepository.findByEmail(input.email.trim());
 
         if (!user || !user.passwordHash) {
             throw new InvalidCredentialsError("Credenciais inválidas", 401);
@@ -31,7 +31,7 @@ export class AuthenticateUserUseCase {
         if (!isValid) {
             throw new InvalidCredentialsError("Credenciais inválidas", 401);
         }
-       
+
         const accessToken = await this.tokenService.generate("access", {
             sub: user.id.value,
             organizationId: user.organizationId.value,
