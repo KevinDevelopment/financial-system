@@ -18,7 +18,7 @@ export class UserId {
 	private static parse(value: unknown): bigint {
 		if (value === null || value === undefined) {
 			throw new BusinessRuleViolationError(
-				"Obrigatório informar a organização",
+				"Obrigatório informar o usuário",
 				422,
 			);
 		}

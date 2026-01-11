@@ -1,4 +1,5 @@
 import { UniqueNumericId, OrganizationId } from "../../value-objects/global";
+import { RefreshTokenProps } from "../../props";
 import { UserId } from "../../value-objects/refresh-token";
 
 export class RefreshToken {
@@ -10,13 +11,7 @@ export class RefreshToken {
 		readonly id?: UniqueNumericId,
 	) {}
 
-	static create(props: {
-		id?: bigint;
-		userId: bigint;
-		organizationId: bigint;
-		expiresAt?: Date;
-		revokedAt?: Date;
-	}): RefreshToken {
+	static create(props: RefreshTokenProps): RefreshToken {
 		return new RefreshToken(
 			UserId.create(props.userId),
 			OrganizationId.create(props.organizationId),
