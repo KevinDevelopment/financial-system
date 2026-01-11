@@ -2,3 +2,4 @@ export * from "./in-memory-organization-adapter";
 export * from "./in-memory-category-adapter";
 export * from "./in-memory-user-adapter";
 export * from "./in-memory-password-hasher-adapter";
+export * from "./in-memory-refresh-token-adapter";
