@@ -35,7 +35,7 @@ export class CreateUserController {
 				body: result,
 			};
 		} catch (error) {
-            console.error(error)
+			console.error(error);
 			if (error instanceof AplicationError) {
 				return {
 					code: error?.status,

@@ -118,5 +118,5 @@ describe("entity user tests", () => {
 		expect(definePassword).toThrowError(
 			new BusinessRuleViolationError("Usuário já possui senha definida", 422),
 		);
-	});	
+	});
 });

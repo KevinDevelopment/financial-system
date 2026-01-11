@@ -6,5 +6,5 @@ import { userRoutes } from "./user-routes";
 export async function registerRoutes(fastify: FastifyInstance) {
 	fastify.register(organizationRoutes);
 	fastify.register(categoryRoutes);
-	fastify.register(userRoutes)
+	fastify.register(userRoutes);
 }

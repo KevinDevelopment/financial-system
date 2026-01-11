@@ -9,7 +9,7 @@ export class CreateUserUseCase {
 	constructor(
 		private readonly userRepository: UserRepository,
 		private readonly passwordHasher: PasswordHasher,
-	) { }
+	) {}
 
 	async perform(input: CreateUserInputDto): Promise<CreateUserOutputDto> {
 		const user = User.create({
@@ -20,7 +20,7 @@ export class CreateUserUseCase {
 		});
 
 		const emailAlreadyExists = await this.userRepository.findByEmail(
-			input.email
+			input.email,
 		);
 
 		if (emailAlreadyExists) {

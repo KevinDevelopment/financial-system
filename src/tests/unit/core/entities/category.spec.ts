@@ -113,10 +113,7 @@ describe("entity category tests", () => {
 			return Category.create({ ...baseCategory, organizationId: 0n });
 		};
 		expect(category).toThrowError(
-			new BusinessRuleViolationError(
-				"OrganizationId inválido",
-				422,
-			),
+			new BusinessRuleViolationError("OrganizationId inválido", 422),
 		);
 	});
 
@@ -125,10 +122,7 @@ describe("entity category tests", () => {
 			return Category.create({ ...baseCategory, organizationId: null });
 		};
 		expect(category).toThrowError(
-			new BusinessRuleViolationError(
-				"Obrigatório informar a organização",
-				422,
-			),
+			new BusinessRuleViolationError("Obrigatório informar a organização", 422),
 		);
 	});
 
@@ -156,16 +150,12 @@ describe("entity category tests", () => {
 		);
 	});
 
-
 	test("Should return an error if organization id is not valid", async () => {
 		const category = () => {
 			return Category.create({ ...baseCategory, organizationId: {} });
 		};
 		expect(category).toThrowError(
-			new BusinessRuleViolationError(
-				"OrganizationId inválido",
-				422,
-			),
+			new BusinessRuleViolationError("OrganizationId inválido", 422),
 		);
 	});
 });

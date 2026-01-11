@@ -63,7 +63,6 @@ describe("create user use case tests", () => {
 		await useCase.perform(correctValues);
 
 		expect(spyMethodFindByEmail).toHaveBeenCalledTimes(1);
-		console.log(correctValues);
 		expect(spyMethodFindByEmail).toHaveBeenCalledWith(correctValues.email);
 	});
 
@@ -142,6 +141,19 @@ describe("create user use case tests", () => {
 			expect(error.message).toBe(
 				"Senha deve conter ao menos uma letra maiúscula",
 			);
+			expect(error.status).toBe(422);
+		}
+	});
+
+	test("Should return an error if password is not provided", async () => {
+		try {
+			await useCase.perform({
+				...correctValues,
+				password: "",
+			});
+		} catch (error) {
+			expect(error).toBeInstanceOf(BusinessRuleViolationError);
+			expect(error.message).toBe("Senha não pode ser vazia");
 			expect(error.status).toBe(422);
 		}
 	});

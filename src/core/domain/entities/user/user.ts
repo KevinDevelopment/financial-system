@@ -12,7 +12,7 @@ export class User {
 		private readonly _organizationId: OrganizationId,
 		private readonly _passwordHash?: PasswordHash,
 		private readonly _id?: UniqueNumericId,
-	) { }
+	) {}
 
 	public static create(props: UserProps): User {
 		const { id, name, email, role, passwordHash, organizationId } = props;
@@ -58,19 +58,21 @@ export class User {
 			email: this._email.value,
 			organizationId: this._organizationId.value,
 			role: this._role.type,
-			passwordHash: this._passwordHash ? this._passwordHash.value : undefined
-		}
+			passwordHash: this._passwordHash ? this._passwordHash.value : undefined,
+		};
 	}
 
 	public definePassword(passwordHash: string): User {
 		if (this._passwordHash) {
-			throw new BusinessRuleViolationError("Usuário já possui senha definida", 422);
+			throw new BusinessRuleViolationError(
+				"Usuário já possui senha definida",
+				422,
+			);
 		}
 
 		return User.create({
 			...this.toProps(),
-			passwordHash
+			passwordHash,
 		});
 	}
 }
-

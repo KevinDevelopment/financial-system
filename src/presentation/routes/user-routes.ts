@@ -2,27 +2,24 @@ import { FastifyInstance } from "fastify";
 import {
 	makeRouteHandler,
 	makeAuthenticateUserController,
-	makeCreateUserController
+	makeCreateUserController,
 } from "../factories";
 import {
 	CreateUserControllerAdapter,
-	AuthenticateUserControllerAdapter
+	AuthenticateUserControllerAdapter,
 } from "../route-adapters";
 
 export async function userRoutes(fastify: FastifyInstance) {
 	fastify.post(
 		"/v1/users",
-		makeRouteHandler(
-			CreateUserControllerAdapter,
-			makeCreateUserController
-		),
+		makeRouteHandler(CreateUserControllerAdapter, makeCreateUserController),
 	);
 
 	fastify.post(
 		"/v1/login",
 		makeRouteHandler(
 			AuthenticateUserControllerAdapter,
-			makeAuthenticateUserController
-		)
+			makeAuthenticateUserController,
+		),
 	);
 }
