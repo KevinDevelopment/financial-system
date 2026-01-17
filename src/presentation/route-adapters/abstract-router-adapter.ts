@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { HttpRequest, HttpResponse } from "../ports/index.js";
-import { Serializer } from "../utils/serializer.js";
+import { Serializer } from "../../core/application/shared";
 
 export abstract class AbstractRouteAdapter<TController> {
 	constructor(protected readonly controller: TController) {}

@@ -1,15 +1,8 @@
 import jwt from "jsonwebtoken";
 import { TokenService } from "../../core/application/services";
+import { Serializer } from "../../core/application/shared";
 
 export class TokenServiceAdapter implements TokenService {
-	private serializeBigInt(obj: object): object {
-		return JSON.parse(
-			JSON.stringify(obj, (_, value) =>
-				typeof value === "bigint" ? value.toString() : value,
-			),
-		);
-	}
-
 	async generate(type: "access" | "refresh", payload: object): Promise<string> {
 		const expiresIn = type === "access" ? "15m" : "30d";
 		const secret =
@@ -17,7 +10,7 @@ export class TokenServiceAdapter implements TokenService {
 				? process.env.ACCESS_TOKEN_SECRET
 				: process.env.REFRESH_TOKEN_SECRET;
 
-		const safePayload = this.serializeBigInt(payload);
+		const safePayload = Serializer.safeJson(payload);
 
 		return jwt.sign(safePayload, secret!, {
 			expiresIn,
