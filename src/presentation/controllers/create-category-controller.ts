@@ -1,4 +1,4 @@
-import { CreateCategoryUseCase } from "../../core/aplication/use-cases";
+import { CreateCategoryUseCase } from "../../core/application/use-cases";
 import { CategoryRepositoryAdapter } from "../../infrastructure/adapters";
 import { AplicationError } from "../../core/domain/errors";
 import { HttpRequest, HttpResponse } from "../ports";

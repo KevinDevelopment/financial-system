@@ -1,4 +1,4 @@
-import { PasswordHasher } from "../../core/aplication/services";
+import { PasswordHasher } from "../../core/application/services";
 
 export class InMemoryPasswordHasherAdapter implements PasswordHasher {
 	async hash(plain: string): Promise<string> {

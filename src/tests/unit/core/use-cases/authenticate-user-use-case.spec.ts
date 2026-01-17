@@ -1,7 +1,7 @@
 import { expect, test, describe, beforeEach, vitest } from "vitest";
 import { InMemoryUserAdapter } from "../../../../infrastructure/in-memory";
-import { AuthenticateUserUseCase } from "../../../../core/aplication/use-cases/authenticate-user-use-case";
-import { AuthenticateUserInputDto } from "../../../../core/aplication/dto";
+import { AuthenticateUserUseCase } from "../../../../core/application/use-cases/authenticate-user-use-case";
+import { AuthenticateUserInputDto } from "../../../../core/application/dto";
 import {
 	InvalidCredentialsError,
 	MissingDataError,

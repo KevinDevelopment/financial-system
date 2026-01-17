@@ -1,6 +1,6 @@
 import { expect, test, describe, beforeEach, vitest } from "vitest";
 import { InMemoryCategoryAdapter } from "../../../../infrastructure/in-memory";
-import { CreateCategoryUseCase } from "../../../../core/aplication/use-cases/create-category-use-case";
+import { CreateCategoryUseCase } from "../../../../core/application/use-cases/create-category-use-case";
 import { CategoryProps } from "../../../../core/domain/props";
 import { DataAlreadyExistsError } from "../../../../core/domain/errors";
 import { Category } from "../../../../core/domain/entities/category";

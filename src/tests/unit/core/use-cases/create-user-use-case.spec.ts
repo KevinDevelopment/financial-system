@@ -3,8 +3,8 @@ import {
 	InMemoryUserAdapter,
 	InMemoryPasswordHasherAdapter,
 } from "../../../../infrastructure/in-memory";
-import { CreateUserUseCase } from "../../../../core/aplication/use-cases";
-import { CreateUserInputDto } from "../../../../core/aplication/dto";
+import { CreateUserUseCase } from "../../../../core/application/use-cases";
+import { CreateUserInputDto } from "../../../../core/application/dto";
 import {
 	DataAlreadyExistsError,
 	BusinessRuleViolationError,

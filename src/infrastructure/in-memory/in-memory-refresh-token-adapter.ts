@@ -1,4 +1,4 @@
-import { RefreshTokenRepository } from "../../core/aplication/repositories";
+import { RefreshTokenRepository } from "../../core/application/repositories";
 import { RefreshToken } from "../../core/domain/entities/refresh-token";
 
 export class InMemoryRefreshTokenAdapter implements RefreshTokenRepository {

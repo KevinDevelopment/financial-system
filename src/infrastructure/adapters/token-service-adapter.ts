@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { TokenService } from "../../core/aplication/services";
+import { TokenService } from "../../core/application/services";
 
 export class TokenServiceAdapter implements TokenService {
 	private serializeBigInt(obj: object): object {

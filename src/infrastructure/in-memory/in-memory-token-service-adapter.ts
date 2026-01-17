@@ -1,4 +1,4 @@
-import { TokenService } from "../../core/aplication/services";
+import { TokenService } from "../../core/application/services";
 
 export class InMemoryTokenServiceAdapter implements TokenService {
 	async generate(): Promise<string> {

@@ -1,5 +1,5 @@
 import { Organization } from "../../core/domain/entities/organization";
-import { OrganizationRepository } from "../../core/aplication/repositories";
+import { OrganizationRepository } from "../../core/application/repositories";
 
 export class InMemoryOrganizationAdapter implements OrganizationRepository {
 	private readonly databaseInMemory: Array<Organization> = [];

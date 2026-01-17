@@ -1,4 +1,4 @@
-import { CreateOrganizationUseCase } from "../../core/aplication/use-cases";
+import { CreateOrganizationUseCase } from "../../core/application/use-cases";
 import { OrganizationRepositoryAdapter } from "../../infrastructure/adapters";
 import { AplicationError } from "../../core/domain/errors";
 import { HttpRequest, HttpResponse } from "../ports";

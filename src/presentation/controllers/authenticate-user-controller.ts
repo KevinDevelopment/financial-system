@@ -1,4 +1,4 @@
-import { AuthenticateUserUseCase } from "../../core/aplication/use-cases";
+import { AuthenticateUserUseCase } from "../../core/application/use-cases";
 import {
 	UserRepositoryAdapter,
 	PasswordHasherAdapter,

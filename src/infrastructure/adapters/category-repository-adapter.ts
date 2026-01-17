@@ -1,5 +1,5 @@
 import { Category } from "../../core/domain/entities/category";
-import { CategoryRepository } from "../../core/aplication/repositories";
+import { CategoryRepository } from "../../core/application/repositories";
 import { prisma } from "../config";
 import { categoryMapper } from "../mappers";
 

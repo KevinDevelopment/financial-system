@@ -1,7 +1,7 @@
 import { expect, test, describe, beforeEach, vitest } from "vitest";
-import { CreateOrganizationUseCase } from "../../../../core/aplication/use-cases";
+import { CreateOrganizationUseCase } from "../../../../core/application/use-cases";
 import { InMemoryOrganizationAdapter } from "../../../../infrastructure/in-memory";
-import { CreateOrganizationInputDto } from "../../../../core/aplication/dto";
+import { CreateOrganizationInputDto } from "../../../../core/application/dto";
 import { Organization } from "../../../../core/domain/entities/organization";
 import { DataAlreadyExistsError } from "../../../../core/domain/errors";
 

@@ -1,5 +1,5 @@
 import { User } from "../../core/domain/entities/user";
-import { UserRepository } from "../../core/aplication/repositories";
+import { UserRepository } from "../../core/application/repositories";
 import { prisma } from "../config";
 import { userMapper } from "../mappers";
 
