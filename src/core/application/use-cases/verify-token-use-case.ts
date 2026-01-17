@@ -16,7 +16,7 @@ export class VerifyTokenUseCase {
             throw new InvalidValueError("Token de acesso inválido", 401)
         }
 
-        if (input.token.match(/\s/)) {
+        if (input.token.match(/\s/g)) {
             throw new InvalidValueError("Token de acesso inválido", 401)
         }
 

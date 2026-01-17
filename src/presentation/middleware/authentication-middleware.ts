@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { VerifyTokenUseCase } from "../../core/application/use-cases/verify-token-use-case";
+import { VerifyTokenUseCase } from "../../core/application/use-cases";
 import { TokenServiceAdapter } from "../../infrastructure/adapters";
 
 export class AuthenticateMiddleware {
