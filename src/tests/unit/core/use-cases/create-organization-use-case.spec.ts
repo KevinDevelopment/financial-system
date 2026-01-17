@@ -1,9 +1,9 @@
 import { expect, test, describe, beforeEach, vitest } from "vitest";
-import { CreateOrganizationUseCase } from "../../../../core/use-cases";
+import { CreateOrganizationUseCase } from "../../../../core/application/use-cases";
 import { InMemoryOrganizationAdapter } from "../../../../infrastructure/in-memory";
-import { CreateOrganizationInputDto } from "../../../../core/dto";
-import { Organization } from "../../../../core/entities";
-import { DataAlreadyExistsError } from "../../../../core/exception";
+import { CreateOrganizationInputDto } from "../../../../core/application/dto";
+import { Organization } from "../../../../core/domain/entities/organization";
+import { DataAlreadyExistsError } from "../../../../core/domain/errors";
 
 let repository: InMemoryOrganizationAdapter;
 let useCase: CreateOrganizationUseCase;
@@ -50,7 +50,7 @@ describe("create organization use case tests", () => {
 
 	test("Should return an error if organization exists with same name", async () => {
 		const organization = Organization.create({
-			...correctValues,			
+			...correctValues,
 			cnpj: "85.169.115/0001-67",
 		});
 		repository.create(organization);

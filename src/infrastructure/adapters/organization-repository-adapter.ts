@@ -1,6 +1,6 @@
-import { Organization } from "../../core/entities";
-import { OrganizationRepository } from "../../core/repositories";
-import { UniqueNumericId } from "../../core/value-objects/organization";
+import { Organization } from "../../core/domain/entities/organization";
+import { OrganizationRepository } from "../../core/application/repositories";
+import { UniqueNumericId } from "../../core/domain/value-objects/global";
 import { prisma } from "../config";
 import { organizationMapper } from "../mappers/organization-mapper";
 

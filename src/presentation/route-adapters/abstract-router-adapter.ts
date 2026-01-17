@@ -1,9 +1,9 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { HttpRequest, HttpResponse } from "../ports/index.js";
-import { Serializer } from "../utils/serializer.js";
+import { Serializer } from "../../core/application/shared";
 
 export abstract class AbstractRouteAdapter<TController> {
-	constructor(protected readonly controller: TController) {}
+	constructor(protected readonly controller: TController) { }
 
 	public async handle(
 		request: FastifyRequest,
@@ -24,6 +24,7 @@ export abstract class AbstractRouteAdapter<TController> {
 			headers: request.headers,
 			params: request.params,
 			query: request.query,
+			tenant: request.tenant
 		};
 	}
 

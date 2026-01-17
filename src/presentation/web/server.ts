@@ -1,20 +1,15 @@
 import { fastify } from "./app";
-import { organizationRoutes } from "../routes/organization-routes";
+import { registerRoutes } from "../routes";
 
 async function bootstrap() {
-	try {
-		fastify.register(organizationRoutes);
+	fastify.register(registerRoutes);
 
-		await fastify.listen({
-			port: Number(process.env.PORT) || 3000,
-			host: "0.0.0.0",
-		});
+	await fastify.listen({
+		port: Number(process.env.PORT) || 3000,
+		host: "0.0.0.0",
+	});
 
-		console.log(`🚀 Servidor rodando na porta ${process.env.PORT || 8766}`);
-	} catch (error) {
-		console.error("❌ Erro ao iniciar servidor:", error);
-		process.exit(1);
-	}
+	console.log(`🚀 Servidor rodando na porta ${process.env.PORT || 8766}`);
 }
 
 process.on("SIGINT", async () => {
