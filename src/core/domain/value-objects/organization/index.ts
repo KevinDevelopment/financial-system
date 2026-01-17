@@ -1,3 +1,3 @@
 export * from "./cnpj";
 export * from "./address";
-export * from "./name";
+export * from "../global/name";
