@@ -64,7 +64,7 @@ describe("entity category tests", () => {
 			return Category.create({ ...baseCategory, color: "" });
 		};
 		expect(category).toThrowError(
-			new BusinessRuleViolationError("Cor da categoria inválida", 422),
+			new BusinessRuleViolationError("Cor é obrigatório", 422),
 		);
 	});
 
