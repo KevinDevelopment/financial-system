@@ -17,7 +17,7 @@ export class CreateCategoryController {
 			const result = await this.createCategoryUseCase.perform({
 				name: httpRequest.body.name,
 				color: httpRequest.body.color,
-				organizationId: httpRequest.body.organizationId,
+				organizationId: httpRequest.tenant.organizationId,
 				description: httpRequest.body.description,
 			});
 
@@ -27,6 +27,7 @@ export class CreateCategoryController {
 				body: result,
 			};
 		} catch (error) {
+			console.log(error);
 			if (error instanceof AplicationError) {
 				return {
 					code: error?.status,

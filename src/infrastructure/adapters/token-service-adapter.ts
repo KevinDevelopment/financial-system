@@ -27,6 +27,7 @@ export class TokenServiceAdapter implements TokenService {
 				? process.env.ACCESS_TOKEN_SECRET
 				: process.env.REFRESH_TOKEN_SECRET;
 
+		console.log(jwt.verify(token, secret) as TPayload)
 		return jwt.verify(token, secret) as TPayload;
 	}
 }

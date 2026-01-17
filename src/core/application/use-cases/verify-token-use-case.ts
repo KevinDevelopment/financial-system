@@ -21,7 +21,7 @@ export class VerifyTokenUseCase {
         }
 
         try {
-            const { sub, organizationId, role } = await this.tokenService.verify<VerifyTokenOutputDto>("access", input.token);
+            const { sub, organizationId, role } = await this.tokenService.verify<VerifyTokenOutputDto>("access", input.token.trim());
 
             return {
                 sub,

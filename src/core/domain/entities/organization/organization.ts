@@ -10,30 +10,18 @@ export class Organization {
 		private readonly _phone?: string,
 		private readonly _address?: Address,
 		private readonly _id?: UniqueNumericId,
-	) {}
+	) { }
 
 	public static create(props: OrganizationProps): Organization {
 		const { name, cnpj, socialReason, phone, address, id } = props;
-		const nameInstance = Name.create(name);
-		let addressInstance: Address | null;
-		if (address) {
-			addressInstance = Address.create(address);
-		}
-
-		let cnpjInstance: CNPJ | null;
-		if (cnpj) {
-			cnpjInstance = CNPJ.create(cnpj);
-		}
-
-		const uniqueId = id ? UniqueNumericId.create(id) : UniqueNumericId.create();
 
 		return new Organization(
-			nameInstance,
-			cnpjInstance,
+			Name.create(name),
+			cnpj ? CNPJ.create(cnpj) : null,
 			socialReason,
 			phone,
-			addressInstance,
-			uniqueId,
+			address ? Address.create(address) : null,
+			id ? UniqueNumericId.create(id) : UniqueNumericId.create(),
 		);
 	}
 

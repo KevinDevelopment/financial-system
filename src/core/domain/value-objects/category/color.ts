@@ -16,6 +16,10 @@ export class Color {
 	}
 
 	private static isValid(value: string): boolean {
+		if (!value) {
+			throw new BusinessRuleViolationError("Cor é obrigatório", 422)
+		}
+
 		return this.isHex(value) || this.isRGBA(value) || this.isNamedColor(value);
 	}
 
