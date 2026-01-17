@@ -14,8 +14,9 @@ export class Category {
 
 	public static create(props: CategoryProps): Category {
 		const { name, color, organizationId, description, id } = props;
+		const MAX_QUANTITY_OF_PERMITTED_CHARACTERS = 255;
 
-		if (description && description.length > 255) {
+		if (description && description.length > MAX_QUANTITY_OF_PERMITTED_CHARACTERS) {
 			throw new BusinessRuleViolationError(
 				"Descrição não pode exceder 255 caracteres",
 				422,
