@@ -1,8 +1,10 @@
+import { TokenType } from "../types";
+
 export interface TokenService {
-	generate(type: "access" | "refresh", payload: object): Promise<string>;
+	generate(type: TokenType, payload: object): Promise<string>;
 
 	verify<TPayload>(
-		type: "access" | "refresh",
+		type: TokenType,
 		token: string,
 	): Promise<TPayload>;
 }

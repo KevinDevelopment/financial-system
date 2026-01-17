@@ -1,12 +1,13 @@
 import jwt from "jsonwebtoken";
 import { TokenService } from "../../core/application/services";
 import { Serializer } from "../../core/application/shared";
+import { TokenType } from "../../core/application/types";
 
 export class TokenServiceAdapter implements TokenService {
-	async generate(type: "access" | "refresh", payload: object): Promise<string> {
-		const expiresIn = type === "access" ? "15m" : "30d";
+	async generate(type: TokenType, payload: object): Promise<string> {
+		const expiresIn = type === TokenType.ACCESS ? "15m" : "30d";
 		const secret =
-			type === "access"
+			type === TokenType.ACCESS
 				? process.env.ACCESS_TOKEN_SECRET
 				: process.env.REFRESH_TOKEN_SECRET;
 
@@ -19,11 +20,11 @@ export class TokenServiceAdapter implements TokenService {
 	}
 
 	async verify<TPayload>(
-		type: "access" | "refresh",
+		type: TokenType,
 		token: string,
 	): Promise<TPayload> {
 		const secret =
-			type === "access"
+			type === TokenType.ACCESS
 				? process.env.ACCESS_TOKEN_SECRET
 				: process.env.REFRESH_TOKEN_SECRET;
 

@@ -3,6 +3,7 @@ import { PasswordHasher, TokenService } from "../services";
 import { AuthenticateUserInputDto, AuthenticateUserOutputDto } from "../dto";
 import { MissingDataError, InvalidCredentialsError } from "../../domain/errors";
 import { RefreshToken } from "../../domain/entities/refresh-token";
+import { TokenType } from "../types";
 
 export class AuthenticateUserUseCase {
 	constructor(
@@ -37,7 +38,7 @@ export class AuthenticateUserUseCase {
 			throw new InvalidCredentialsError("Credenciais inválidas", 401);
 		}
 
-		const accessToken = await this.tokenService.generate("access", {
+		const accessToken = await this.tokenService.generate(TokenType.ACCESS, {
 			sub: user.id.value,
 			organizationId: user.organizationId.value,
 			role: user.role.type,
@@ -48,7 +49,7 @@ export class AuthenticateUserUseCase {
 			organizationId: user.organizationId.value,
 		});
 
-		const refreshToken = await this.tokenService.generate("refresh", {
+		const refreshToken = await this.tokenService.generate(TokenType.REFRESH, {
 			sub: user.id.value,
 			tokenId: refreshTokenEntity.id.value,
 			organizationId: user.organizationId.value,
