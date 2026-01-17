@@ -87,8 +87,6 @@ describe("authenticate user use case tests", () => {
 		await userRepository.create(userWithPassword);
 		const output = await useCase.perform(correctInput);
 
-		console.log(output);
-
 		expect(output).toHaveProperty("accessToken");
 		expect(output).toHaveProperty("refreshToken");
 	});
