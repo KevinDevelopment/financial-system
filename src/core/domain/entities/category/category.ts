@@ -10,14 +10,11 @@ export class Category {
 		private readonly _organizationId: OrganizationId,
 		private readonly _description?: string,
 		private readonly _id?: UniqueNumericId,
-	) {}
+	) { }
 
 	public static create(props: CategoryProps): Category {
 		const { name, color, organizationId, description, id } = props;
-		const nameInstance = Name.create(name);
-		const colorInstance = Color.create(color);
-		const organizationInstance = OrganizationId.create(organizationId);
-		const uniqueId = id ? UniqueNumericId.create(id) : UniqueNumericId.create();
+
 		if (description && description.length > 255) {
 			throw new BusinessRuleViolationError(
 				"Descrição não pode exceder 255 caracteres",
@@ -26,11 +23,11 @@ export class Category {
 		}
 
 		return new Category(
-			nameInstance,
-			colorInstance,
-			organizationInstance,
+			Name.create(name),
+			Color.create(color),
+			OrganizationId.create(organizationId),
 			description,
-			uniqueId,
+			id ? UniqueNumericId.create(id) : UniqueNumericId.create()
 		);
 	}
 
