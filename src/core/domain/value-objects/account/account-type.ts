@@ -25,7 +25,7 @@ export class AccountType {
 		);
 	}
 
-	get type(): number {
+	get value(): number {
 		return this._value;
 	}
 }

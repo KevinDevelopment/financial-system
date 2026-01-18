@@ -9,43 +9,48 @@ import { AccountType } from "../../../../core/domain/entities/account/account-ty
 let repository: InMemoryAccountAdapter;
 let useCase: CreateAccountUseCase;
 const correctValues: AccountProps = {
-    currentBalance: 1.10,
-    initialBalance: 0,
-    name: "conta teste",
-    organizationId: 123n,
-    userId: 345n,
-    type: AccountType.SAVINGS
-}
+	currentBalance: 1.1,
+	initialBalance: 0,
+	name: "conta teste",
+	organizationId: 123n,
+	userId: 345n,
+	type: AccountType.SAVINGS,
+};
 
 beforeEach(() => {
-    repository = new InMemoryAccountAdapter();
-    useCase = new CreateAccountUseCase(repository);
+	repository = new InMemoryAccountAdapter();
+	useCase = new CreateAccountUseCase(repository);
 });
 
 describe("create account use case tests", () => {
-    test("Should call the create method once with correct values", async () => {
-        const spyMethodCreate = vitest.spyOn(repository, "create");
-        await useCase.perform(correctValues);
-        expect(spyMethodCreate).toBeCalledTimes(1);
-    });
+	test("Should call the create method once with correct values", async () => {
+		const spyMethodCreate = vitest.spyOn(repository, "create");
+		await useCase.perform(correctValues);
+		expect(spyMethodCreate).toBeCalledTimes(1);
+	});
 
-    test("Should call the find by name method once with correct values", async ()  => {
-        const spyMethodFindByName = vitest.spyOn(repository, "findByName");
-        await useCase.perform(correctValues);
-        expect(spyMethodFindByName).toBeCalledTimes(1);
-        expect(spyMethodFindByName).toBeCalledWith(correctValues.name, correctValues.userId as bigint);
-    });
+	test("Should call the find by name method once with correct values", async () => {
+		const spyMethodFindByName = vitest.spyOn(repository, "findByName");
+		await useCase.perform(correctValues);
+		expect(spyMethodFindByName).toBeCalledTimes(1);
+		expect(spyMethodFindByName).toBeCalledWith(
+			correctValues.name,
+			correctValues.userId as bigint,
+		);
+	});
 
-    test("Should return an error if account exists with same name for the user", async () => {
-        const account = Account.create(correctValues);
-        repository.create(account);
+	test("Should return an error if account exists with same name for the user", async () => {
+		const account = Account.create(correctValues);
+		repository.create(account);
 
-        try {
-            await useCase.perform(correctValues);
-        } catch (error) {
-            expect(error).toBeInstanceOf(DataAlreadyExistsError);
-            expect(error?.message).toBe("Ja existe uma conta com este nome para o usuário");
-            expect(error?.status).toBe(409);
-        }
-    });
+		try {
+			await useCase.perform(correctValues);
+		} catch (error) {
+			expect(error).toBeInstanceOf(DataAlreadyExistsError);
+			expect(error?.message).toBe(
+				"Ja existe uma conta com este nome para o usuário",
+			);
+			expect(error?.status).toBe(409);
+		}
+	});
 });
