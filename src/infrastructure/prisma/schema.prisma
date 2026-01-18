@@ -65,6 +65,8 @@ model Account {
   currentBalance Decimal       @map("current_balance") @db.Decimal(10, 2)
   organizationId BigInt        @map("organization_id")
   organization   Organization  @relation(fields: [organizationId], references: [id])
+  userId         BigInt
+  user           User          @relation(fields: [userId], references: [id])
   transactions   Transaction[]
   createdAt      DateTime      @default(now()) @map("created_at")
   updatedAt      DateTime      @updatedAt @map("updated_at")
@@ -82,6 +84,7 @@ model User {
   organization   Organization   @relation(fields: [organizationId], references: [id])
   transactions   Transaction[]
   refreshTokens  RefreshToken[]
+  accounts       Account[]
   createdAt      DateTime       @default(now()) @map("created_at")
   updatedAt      DateTime       @updatedAt @map("updated_at")
 
