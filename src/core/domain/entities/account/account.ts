@@ -2,10 +2,10 @@ import {
 	UniqueNumericId,
 	OrganizationId,
 	UserId,
+	Name
 } from "../../value-objects/global";
 import { AccountType, Money } from "../../value-objects/account";
 import { AccountProps } from "../../props";
-import { Name } from "../../value-objects/global";
 
 export class Account {
 	private constructor(

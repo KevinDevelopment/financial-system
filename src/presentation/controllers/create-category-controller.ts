@@ -14,7 +14,7 @@ export class CreateCategoryController {
 
 	async execute(httpRequest: HttpRequest): Promise<HttpResponse> {
 		try {
-			const  = await this.createCategoryUseCase.perform({
+			const result = await this.createCategoryUseCase.perform({
 				name: httpRequest.body.name,
 				color: httpRequest.body.color,
 				organizationId: httpRequest.tenant.organizationId,

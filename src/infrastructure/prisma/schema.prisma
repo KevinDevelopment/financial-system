@@ -9,7 +9,7 @@ datasource db {
 
 model Organization {
   id           BigInt     @id
-  name         String     @db.VarChar(80)
+  name         String     @db.VarChar(100)
   socialReason String     @map("social_reason") @db.VarChar(150)
   phone        String     @db.VarChar(30)
   cnpj         String     @db.VarChar(14)
@@ -45,7 +45,7 @@ model Transaction {
 
 model Category {
   id             BigInt        @id
-  name           String        @db.VarChar(80)
+  name           String        @db.VarChar(100)
   description    String?       @db.VarChar(255)
   color          String        @db.VarChar(40)
   organizationId BigInt        @map("organization_id")
@@ -59,7 +59,7 @@ model Category {
 
 model Account {
   id             BigInt        @id
-  name           String        @db.VarChar(80)
+  name           String        @db.VarChar(100)
   type           Int           @db.SmallInt
   initialBalance Decimal       @map("initial_balance") @db.Decimal(10, 2)
   currentBalance Decimal       @map("current_balance") @db.Decimal(10, 2)

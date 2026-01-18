@@ -1,7 +1,7 @@
-import { UniqueNumericId, OrganizationId } from "../../value-objects/global";
+import { UniqueNumericId, OrganizationId, Name } from "../../value-objects/global";
 import { BusinessRuleViolationError } from "../../errors";
 import { CategoryProps } from "../../props";
-import { Name, Color } from "../../value-objects/category";
+import { Color } from "../../value-objects/category";
 
 export class Category {
 	private constructor(
@@ -10,7 +10,7 @@ export class Category {
 		private readonly _organizationId: OrganizationId,
 		private readonly _description?: string,
 		private readonly _id?: UniqueNumericId,
-	) {}
+	) { }
 
 	public static create(props: CategoryProps): Category {
 		const { name, color, organizationId, description, id } = props;

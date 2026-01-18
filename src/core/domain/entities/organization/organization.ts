@@ -1,5 +1,5 @@
-import { CNPJ, Address, Name } from "../../value-objects/organization";
-import { UniqueNumericId } from "../../value-objects/global";
+import { CNPJ, Address } from "../../value-objects/organization";
+import { UniqueNumericId, Name } from "../../value-objects/global";
 import { OrganizationProps } from "../../props";
 
 export class Organization {
