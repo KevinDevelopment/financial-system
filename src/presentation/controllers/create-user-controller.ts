@@ -26,7 +26,7 @@ export class CreateUserController {
 				email: httpRequest.body.email,
 				role: httpRequest.body.role,
 				password: httpRequest.body.password,
-				organizationId: httpRequest.tenant.organizationId
+				organizationId: httpRequest.tenant.organizationId,
 			});
 
 			return {

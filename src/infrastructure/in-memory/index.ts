@@ -4,3 +4,4 @@ export * from "./in-memory-user-adapter";
 export * from "./in-memory-password-hasher-adapter";
 export * from "./in-memory-refresh-token-adapter";
 export * from "./in-memory-token-service-adapter";
+export * from "./in-memory-account-repository";

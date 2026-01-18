@@ -26,7 +26,7 @@ export class CreateCategoryController {
 				message: "Categoria criada com sucesso",
 				body: result,
 			};
-		} catch (error) {			
+		} catch (error) {
 			if (error instanceof AplicationError) {
 				return {
 					code: error?.status,

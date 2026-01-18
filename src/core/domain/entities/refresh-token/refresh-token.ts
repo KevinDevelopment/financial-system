@@ -9,7 +9,7 @@ export class RefreshToken {
 		readonly expiresAt: Date,
 		readonly revokedAt?: Date,
 		readonly id?: UniqueNumericId,
-	) { }
+	) {}
 
 	static create(props: RefreshTokenProps): RefreshToken {
 		const { userId, organizationId, expiresAt, revokedAt, id } = props;

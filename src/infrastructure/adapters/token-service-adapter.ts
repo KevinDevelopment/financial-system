@@ -19,10 +19,7 @@ export class TokenServiceAdapter implements TokenService {
 		});
 	}
 
-	async verify<TPayload>(
-		type: TokenType,
-		token: string,
-	): Promise<TPayload> {
+	async verify<TPayload>(type: TokenType, token: string): Promise<TPayload> {
 		const secret =
 			type === TokenType.ACCESS
 				? process.env.ACCESS_TOKEN_SECRET

@@ -10,7 +10,7 @@ export class Organization {
 		private readonly _phone?: string,
 		private readonly _address?: Address,
 		private readonly _id?: UniqueNumericId,
-	) { }
+	) {}
 
 	public static create(props: OrganizationProps): Organization {
 		const { name, cnpj, socialReason, phone, address, id } = props;
