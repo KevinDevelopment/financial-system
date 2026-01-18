@@ -1,3 +1,5 @@
+import { BusinessRuleViolationError } from "../../errors";
+
 export class Money {
 	private constructor(private readonly cents: number) {}
 
@@ -6,7 +8,7 @@ export class Money {
 			typeof value === "string" ? Number(value.replace(",", ".")) : value;
 
 		if (Number.isNaN(num)) {
-			throw new Error("Valor monetário inválido");
+			throw new BusinessRuleViolationError("Valor monetário inválido", 422);
 		}
 
 		return new Money(Math.round(num * 100));
