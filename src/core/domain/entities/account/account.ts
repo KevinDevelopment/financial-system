@@ -6,38 +6,68 @@ import {
 } from "../../value-objects/global";
 import { AccountType, Money } from "../../value-objects/account";
 import { AccountProps } from "../../props";
+import { Transaction } from "../transaction/transaction";
+import { TransactionType } from "../../value-objects/transaction";
+import { TransactionType as TransactionTypeEnum } from "../../entities/transaction/transaction-type";
+import { TransactionStatus as TransactionStatusEnum } from "../../entities/transaction/transaction-status";
 
 export class Account {
+	private _currentBalance: Money;
+
 	private constructor(
 		private readonly _name: Name,
 		private readonly _type: AccountType,
 		private readonly _initialBalance: Money,
-		private readonly _currentBalance: Money,
+		currentBalance: Money,
 		private readonly _organizationId: OrganizationId,
 		private readonly _userId: UserId,
-		private readonly _id?: UniqueNumericId,
-	) { }
+		private readonly _id: UniqueNumericId,
+	) {
+		this._currentBalance = currentBalance;
+	}
 
 	public static create(props: AccountProps): Account {
-		const {
-			name,
-			type,
-			initialBalance,
-			currentBalance,
-			organizationId,
-			userId,
-			id,
-		} = props;
-
 		return new Account(
-			Name.create(name),
-			AccountType.create(type),
-			Money.create(initialBalance),
-			Money.create(currentBalance),
-			OrganizationId.create(organizationId),
-			UserId.create(userId),
-			id ? UniqueNumericId.create(id) : UniqueNumericId.create(),
+			Name.create(props.name),
+			AccountType.create(props.type),
+			Money.create(props.initialBalance),
+			Money.create(props.currentBalance),
+			OrganizationId.create(props.organizationId),
+			UserId.create(props.userId),
+			props.id ? UniqueNumericId.create(props.id) : UniqueNumericId.create(),
 		);
+	}
+
+	public createTransaction(params: {
+		ammount: number;
+		type: number;
+		status: number;
+		paymentMethod: number;
+		categoryId?: number;
+		description?: string;
+	}) {
+		const ammount = Money.create(params.ammount);
+		const transactionType = TransactionType.create(params.type);
+
+		if (params.status === TransactionStatusEnum.PAID) {
+			if (transactionType.value === TransactionTypeEnum.EXPENSE) {
+				this._currentBalance = this._currentBalance.minus(ammount);
+			}
+
+			if (transactionType.value === TransactionTypeEnum.INCOME) {
+				this._currentBalance = this._currentBalance.plus(ammount);
+			}
+		}
+
+		return Transaction.create({
+			userId: this._userId.value,
+			ammount: params.ammount,
+			type: transactionType.value,
+			status: params.status,
+			paymentMethod: params.paymentMethod,
+			categoryId: params.categoryId,
+			description: params.description,
+		});
 	}
 
 	public get id(): UniqueNumericId {

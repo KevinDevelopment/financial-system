@@ -1,11 +1,15 @@
 import { BusinessRuleViolationError } from "../../errors";
 
 export class Money {
-    private constructor(private readonly cents: number) { }
+    private constructor(private readonly cents: number) {
+        Object.freeze(this);
+    }
 
     static create(value: number | string): Money {
         const num =
-            typeof value === "string" ? Number(value.replace(",", ".")) : value;
+            typeof value === "string"
+                ? Number(value.replace(",", "."))
+                : value;
 
         if (Number.isNaN(num)) {
             throw new BusinessRuleViolationError("Valor monetário inválido", 422);
@@ -15,15 +19,11 @@ export class Money {
     }
 
     static fromCents(cents: number): Money {
+        if (!Number.isSafeInteger(cents)) {
+            throw new BusinessRuleViolationError("Valor monetário inválido", 422);
+        }
+
         return new Money(cents);
-    }
-
-    toCents(): number {
-        return this.cents;
-    }
-
-    toDecimal(): number {
-        return this.cents / 100;
     }
 
     plus(other: Money): Money {
@@ -44,5 +44,13 @@ export class Money {
 
     isZero(): boolean {
         return this.cents === 0;
+    }
+
+    toCents(): number {
+        return this.cents;
+    }
+
+    toDecimal(): number {
+        return this.cents / 100;
     }
 }
