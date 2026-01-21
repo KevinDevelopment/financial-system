@@ -16,9 +16,9 @@ export class Account {
 		private readonly _organizationId: OrganizationId,
 		private readonly _userId: UserId,
 		private readonly _id?: UniqueNumericId,
-	) {}
+	) { }
 
-	public static create(props: AccountProps) {
+	public static create(props: AccountProps): Account {
 		const {
 			name,
 			type,
