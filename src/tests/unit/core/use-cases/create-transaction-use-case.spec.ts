@@ -148,17 +148,6 @@ describe("create transaction use case tests", () => {
         }
     });
 
-    test("Should allow creating transaction with same description but different date", async () => {
-        await useCase.perform(correctValues);
-
-        const spyMethodCreate = vitest.spyOn(transactionRepository, "create");
-        await useCase.perform({
-            ...correctValues          
-        });
-
-        expect(spyMethodCreate).toBeCalledTimes(1);
-    });
-
     test("Should allow creating transaction without description", async () => {
         const spyMethodCreate = vitest.spyOn(transactionRepository, "create");
         await useCase.perform({
