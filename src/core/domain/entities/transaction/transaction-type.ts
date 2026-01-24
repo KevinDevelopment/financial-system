@@ -1,6 +1,6 @@
 export const TransactionType = Object.freeze({
-	INCOME: 1,
-	EXPENSE: 2,
+	EXPENSE: 1,
+	INCOME: 2,
 } as const);
 
 export type TransactionType =

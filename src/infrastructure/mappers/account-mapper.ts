@@ -6,8 +6,8 @@ export const accountMapper = {
 			id: account.id.value,
 			name: account.name.value,
 			type: account.type.value,
-			initialBalance: account.initialBalance.toCents(),
-			currentBalance: account.currentBalance.toCents(),
+			initialBalance: account.initialBalance.toDecimal(),
+			currentBalance: account.currentBalance.toDecimal(),
 			organizationId: account.organizationId.value,
 			userId: account.userId.value,
 		};

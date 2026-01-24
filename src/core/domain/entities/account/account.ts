@@ -42,8 +42,7 @@ export class Account {
 		amount: number;
 		type: number;
 		status: number;
-		paymentMethod: number;
-		createdAt: Date;
+		paymentMethod: number;		
 		categoryId?: bigint;
 		description?: string;
 	}) {
@@ -67,7 +66,7 @@ export class Account {
 			type: transactionType.value,
 			status: params.status,
 			paymentMethod: params.paymentMethod,
-			createdAt: params.createdAt,
+			createdAt: new Date(),
 			categoryId: params.categoryId,
 			description: params.description,
 		});

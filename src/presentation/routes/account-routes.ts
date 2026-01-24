@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
-import { makeRouteHandler, makeCreateAccountController } from "../factories";
-import { CreateAccountControllerAdapter } from "../route-adapters";
+import { makeRouteHandler, makeCreateAccountController, makeCreateTransactionController } from "../factories";
+import { CreateAccountControllerAdapter, CreateTransactionControllerAdapter } from "../route-adapters";
 import { AuthenticateMiddleware } from "../middleware";
 
 export async function accountRoutes(fastify: FastifyInstance) {
@@ -12,4 +12,13 @@ export async function accountRoutes(fastify: FastifyInstance) {
 			makeCreateAccountController,
 		),
 	);
+
+	fastify.post(
+		"/v1/accounts/:accountId/transactions",
+		{ preHandler: AuthenticateMiddleware.authenticate },
+		makeRouteHandler(
+			CreateTransactionControllerAdapter,
+			makeCreateTransactionController
+		)
+	)
 }

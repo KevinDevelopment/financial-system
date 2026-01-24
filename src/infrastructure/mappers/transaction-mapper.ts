@@ -6,7 +6,7 @@ export const transactionMapper = {
             id: transaction.id.value,
             userId: transaction.userId.value,
             accountId: transaction.accountId.value,
-            amount: transaction.amount.toCents(),
+            amount: transaction.amount.toDecimal(),
             type: transaction.type.value,
             status: transaction.status.value,
             paymentMethod: transaction.paymentMethod.value,

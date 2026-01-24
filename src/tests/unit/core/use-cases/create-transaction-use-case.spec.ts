@@ -47,8 +47,7 @@ beforeEach(async () => {
         amount: 150.5,
         type: TransactionType.EXPENSE,
         status: TransactionStatus.PAID,
-        paymentMethod: PaymentMethod.PIX,
-        createdAt: new Date("2026-01-24"),
+        paymentMethod: PaymentMethod.PIX,       
         description: "Compra de mercado",
     };
 });
@@ -154,8 +153,7 @@ describe("create transaction use case tests", () => {
 
         const spyMethodCreate = vitest.spyOn(transactionRepository, "create");
         await useCase.perform({
-            ...correctValues,
-            createdAt: new Date("2026-01-25"),
+            ...correctValues          
         });
 
         expect(spyMethodCreate).toBeCalledTimes(1);

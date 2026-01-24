@@ -4,8 +4,7 @@ export interface CreateTransactionInputDto {
     amount: number;
     type: number;
     status: number;
-    paymentMethod: number;
-    createdAt: Date;
+    paymentMethod: number;  
     categoryId?: bigint;
     description?: string;
 }

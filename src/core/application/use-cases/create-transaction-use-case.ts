@@ -28,7 +28,6 @@ export class CreateTransactionUseCase {
             type: input.type,
             status: input.status,
             paymentMethod: input.paymentMethod,
-            createdAt: input.createdAt,
             categoryId: input.categoryId,
             description: input.description,
         });
@@ -36,7 +35,7 @@ export class CreateTransactionUseCase {
         const transactionAlreadyExists =
             await this.transactionRepository.findByUserAndDescriptionAndDate(
                 input.userId,
-                input.description || "",
+                input.description,
                 transaction.createdAt,
             );
 
