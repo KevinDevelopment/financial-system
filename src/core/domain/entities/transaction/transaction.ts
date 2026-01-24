@@ -1,31 +1,40 @@
-import { UserId, CategoryId } from "../../value-objects/global";
+import { UserId, CategoryId, AccountId } from "../../value-objects/global";
 import { TransactionProps } from "../../props";
 import { UniqueNumericId } from "../../value-objects/global";
 import { BusinessRuleViolationError } from "../../errors";
-import { Money, TransactionType, TransactionStatus, PaymentMethod } from "../../value-objects/transaction";
+import {
+    Money,
+    TransactionType,
+    TransactionStatus,
+    PaymentMethod,
+} from "../../value-objects/transaction";
 
 export class Transaction {
     private constructor(
         private readonly _userId: UserId,
-        private readonly _ammount: Money,
+        private readonly _accountId: AccountId,
+        private readonly _amount: Money,
         private readonly _type: TransactionType,
         private readonly _status: TransactionStatus,
         private readonly _paymentMethod: PaymentMethod,
+        private readonly _createdAt: Date,
         private readonly _categoryId?: CategoryId,
         private readonly _description?: string,
-        private readonly _id?: UniqueNumericId
+        private readonly _id?: UniqueNumericId,
     ) { }
 
     public static create(props: TransactionProps) {
         const {
             userId,
-            ammount,
+            accountId,
+            amount,
             type,
             status,
             paymentMethod,
+            createdAt,
             categoryId,
             description,
-            id
+            id,
         } = props;
         const MAX_QUANTITY_OF_PERMITTED_CHARACTERS = 255;
 
@@ -41,45 +50,55 @@ export class Transaction {
 
         return new Transaction(
             UserId.create(userId),
-            Money.create(ammount),
+            AccountId.create(accountId),
+            Money.create(amount),
             TransactionType.create(type),
             TransactionStatus.create(status),
             PaymentMethod.create(paymentMethod),
+            createdAt,
             categoryId ? CategoryId.create(categoryId) : undefined,
             description,
-            id ? UniqueNumericId.create(id) : UniqueNumericId.create()
-        )
+            id ? UniqueNumericId.create(id) : UniqueNumericId.create(),
+        );
     }
 
     public get userId(): UserId {
-        return this._userId
+        return this._userId;
     }
 
-    public get ammount(): Money {
-        return this._ammount
+    public get accountId(): AccountId {
+        return this._accountId;
+    }
+
+    public get amount(): Money {
+        return this._amount;
     }
 
     public get type(): TransactionType {
-        return this._type
+        return this._type;
     }
 
     public get status(): TransactionStatus {
-        return this._status
+        return this._status;
     }
 
     public get paymentMethod(): PaymentMethod {
-        return this._paymentMethod
+        return this._paymentMethod;
     }
 
     public get categoryId(): CategoryId {
-        return this._categoryId
+        return this._categoryId;
     }
 
     public get description(): string {
-        return this._description
+        return this._description;
     }
 
     public get id(): UniqueNumericId {
-        return this._id
+        return this._id;
+    }
+
+    public get createdAt(): Date {
+        return this._createdAt;
     }
 }

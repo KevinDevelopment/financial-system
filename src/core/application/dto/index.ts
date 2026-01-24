@@ -4,3 +4,4 @@ export * from "./create-user-dto";
 export * from "./authenticate-user-dto";
 export * from "./verify-token-dto";
 export * from "./create-account-dto";
+export * from "./create-transaction-dto";

@@ -15,21 +15,43 @@ export class AccountRepositoryAdapter implements AccountRepository {
                 initialBalance: data.initialBalance,
                 currentBalance: data.currentBalance,
                 organizationId: data.organizationId,
-                userId: data.userId
-            }
+                userId: data.userId,
+            },
         });
+    }
+
+    async update(account: Account): Promise<void> {
+        const data = accountMapper.toPersistence(account);
+
+        await prisma.account.update({
+            where: { id: data.id },
+            data: {
+                name: data.name,
+                type: data.type,
+                initialBalance: data.initialBalance,
+                currentBalance: data.currentBalance,
+            },
+        });
+    }
+
+    async findById(accountId: bigint): Promise<Account | null> {
+        const account = await prisma.account.findUnique({
+            where: { id: accountId },
+        });
+
+        if (!account) return null;
+        return accountMapper.toDomain(account);
     }
 
     async findByName(name: string, userId: bigint): Promise<Account | null> {
         const account = await prisma.account.findFirst({
             where: {
                 name,
-                userId
-            }
+                userId,
+            },
         });
 
         if (!account) return null;
-
         return accountMapper.toDomain(account);
     }
 }

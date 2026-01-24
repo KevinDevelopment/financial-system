@@ -2,7 +2,7 @@ import {
 	UniqueNumericId,
 	OrganizationId,
 	UserId,
-	Name
+	Name,
 } from "../../value-objects/global";
 import { AccountType, Money } from "../../value-objects/account";
 import { AccountProps } from "../../props";
@@ -39,32 +39,35 @@ export class Account {
 	}
 
 	public createTransaction(params: {
-		ammount: number;
+		amount: number;
 		type: number;
 		status: number;
 		paymentMethod: number;
-		categoryId?: number;
+		createdAt: Date;
+		categoryId?: bigint;
 		description?: string;
 	}) {
-		const ammount = Money.create(params.ammount);
+		const amount = Money.create(params.amount);
 		const transactionType = TransactionType.create(params.type);
 
 		if (params.status === TransactionStatusEnum.PAID) {
 			if (transactionType.value === TransactionTypeEnum.EXPENSE) {
-				this._currentBalance = this._currentBalance.minus(ammount);
+				this._currentBalance = this._currentBalance.minus(amount);
 			}
 
 			if (transactionType.value === TransactionTypeEnum.INCOME) {
-				this._currentBalance = this._currentBalance.plus(ammount);
+				this._currentBalance = this._currentBalance.plus(amount);
 			}
 		}
 
 		return Transaction.create({
 			userId: this._userId.value,
-			ammount: params.ammount,
+			accountId: this._id.value,
+			amount: params.amount,
 			type: transactionType.value,
 			status: params.status,
 			paymentMethod: params.paymentMethod,
+			createdAt: params.createdAt,
 			categoryId: params.categoryId,
 			description: params.description,
 		});

@@ -4,42 +4,42 @@ import { AplicationError } from "../../core/domain/errors";
 import { HttpResponse, HttpRequest } from "../ports";
 
 export class CreateAccountController {
-    private readonly createAccountUseCase: CreateAccountUseCase;
+	private readonly createAccountUseCase: CreateAccountUseCase;
 
-    constructor(accountRepositoryAdapter = new AccountRepositoryAdapter()) {
-        this.createAccountUseCase = new CreateAccountUseCase(
-            accountRepositoryAdapter
-        )
-    }
+	constructor(accountRepositoryAdapter = new AccountRepositoryAdapter()) {
+		this.createAccountUseCase = new CreateAccountUseCase(
+			accountRepositoryAdapter,
+		);
+	}
 
-    async execute(httpRequest: HttpRequest): Promise<HttpResponse> {
-        try {
-            const { id } = await this.createAccountUseCase.perform({
-                name: httpRequest.body.name,
-                type: httpRequest.body.type,
-                initialBalance: httpRequest.body.initialBalance,
-                currentBalance: httpRequest.body.currentBalance,
-                organizationId: httpRequest.tenant.organizationId,
-                userId: httpRequest.tenant.sub
-            });
+	async execute(httpRequest: HttpRequest): Promise<HttpResponse> {
+		try {
+			const { id } = await this.createAccountUseCase.perform({
+				name: httpRequest.body.name,
+				type: httpRequest.body.type,
+				initialBalance: httpRequest.body.initialBalance,
+				currentBalance: httpRequest.body.currentBalance,
+				organizationId: httpRequest.tenant.organizationId,
+				userId: httpRequest.tenant.sub,
+			});
 
-            return {
-                code: 201,
-                message: "Conta cadastrada com sucesso",
-                body: id
-            }
-        } catch (error) {
-            if (error instanceof AplicationError) {
-                return {
-                    code: error?.status,
-                    message: error?.message
-                }
-            }
+			return {
+				code: 201,
+				message: "Conta cadastrada com sucesso",
+				body: id,
+			};
+		} catch (error) {
+			if (error instanceof AplicationError) {
+				return {
+					code: error?.status,
+					message: error?.message,
+				};
+			}
 
-            return {
-                code: 500,
-                message: "Houve um erro inesperado"
-            }
-        }
-    }
+			return {
+				code: 500,
+				message: "Houve um erro inesperado",
+			};
+		}
+	}
 }

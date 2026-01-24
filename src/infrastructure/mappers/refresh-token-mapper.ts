@@ -7,7 +7,7 @@ export const refreshTokenMapper = {
 			userId: token.userId.value,
 			organizationId: token.organizationId.value,
 			expiresAt: token.expiresAt,
-			revokedAt: token.revokedAt ?? null,
+			revokedAt: token.revokedAt,
 		};
 	},
 

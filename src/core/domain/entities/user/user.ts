@@ -1,4 +1,8 @@
-import { UniqueNumericId, OrganizationId, Name } from "../../value-objects/global";
+import {
+	UniqueNumericId,
+	OrganizationId,
+	Name,
+} from "../../value-objects/global";
 import { BusinessRuleViolationError } from "../../errors";
 import { Email, PasswordHash } from "../../value-objects/user";
 import { UserProps } from "../../props";
@@ -12,7 +16,7 @@ export class User {
 		private readonly _organizationId: OrganizationId,
 		private readonly _passwordHash?: PasswordHash,
 		private readonly _id?: UniqueNumericId,
-	) { }
+	) {}
 
 	public static create(props: UserProps): User {
 		const { id, name, email, role, passwordHash, organizationId } = props;

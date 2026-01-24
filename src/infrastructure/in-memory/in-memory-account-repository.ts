@@ -8,6 +8,15 @@ export class InMemoryAccountAdapter implements AccountRepository {
 		this.databaseInMemory.push(account);
 	}
 
+	async update(account: Account): Promise<void> {
+		const index = this.databaseInMemory.findIndex(
+			(acc) => acc.id.value === account.id.value,
+		);
+		if (index !== -1) {
+			this.databaseInMemory[index] = account;
+		}
+	}
+
 	async findByName(name: string, userId: bigint): Promise<Account | null> {
 		const accountExistsByName = this.databaseInMemory.find(
 			(account) =>
@@ -15,5 +24,13 @@ export class InMemoryAccountAdapter implements AccountRepository {
 		);
 		if (!accountExistsByName) return null;
 		return accountExistsByName;
+	}
+
+	async findById(accountId: bigint): Promise<Account | null> {
+		const account = this.databaseInMemory.find(
+			(acc) => acc.id.value === accountId,
+		);
+		if (!account) return null;
+		return account;
 	}
 }
