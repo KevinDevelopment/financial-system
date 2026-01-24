@@ -11,7 +11,7 @@ export class TransactionType {
 
     public static create(value: number): TransactionType {
         if (!TransactionType.isValid(value)) {
-            throw new BusinessRuleViolationError("tipo de conta inválida", 422);
+            throw new BusinessRuleViolationError("tipo de transação inválida", 422);
         }
 
         return new TransactionType(value);

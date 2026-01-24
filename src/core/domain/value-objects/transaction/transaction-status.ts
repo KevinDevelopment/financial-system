@@ -11,7 +11,7 @@ export class TransactionStatus {
 
     public static create(value: number): TransactionStatus {
         if (!TransactionStatus.isValid(value)) {
-            throw new BusinessRuleViolationError("tipo de conta inválida", 422);
+            throw new BusinessRuleViolationError("status de transação inválido", 422);
         }
 
         return new TransactionStatus(value);

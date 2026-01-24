@@ -11,7 +11,7 @@ export class PaymentMethod {
 
     public static create(value: number): PaymentMethod {
         if (!PaymentMethod.isValid(value)) {
-            throw new BusinessRuleViolationError("tipo de conta inválida", 422);
+            throw new BusinessRuleViolationError("método de pagamento inválido", 422);
         }
 
         return new PaymentMethod(value);

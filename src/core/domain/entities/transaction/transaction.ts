@@ -45,7 +45,7 @@ export class Transaction {
             TransactionType.create(type),
             TransactionStatus.create(status),
             PaymentMethod.create(paymentMethod),
-            CategoryId.create(categoryId),
+            categoryId ? CategoryId.create(categoryId) : undefined,
             description,
             id ? UniqueNumericId.create(id) : UniqueNumericId.create()
         )
