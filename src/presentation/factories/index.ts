@@ -5,3 +5,4 @@ export * from "./make-create-user-controller";
 export * from "./make-authenticate-user-controller";
 export * from "./make-create-account-controller";
 export * from "./make-create-transaction-controller";
+export * from "./make-refresh-token-controller";
