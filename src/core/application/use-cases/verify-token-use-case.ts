@@ -1,9 +1,10 @@
 import { TokenService } from "../services";
+import { TokenType } from "../types";
 import { VerifyTokenInputDto, VerifyTokenOutputDto } from "../dto";
 import { MissingDataError, InvalidValueError } from "../../domain/errors";
 
 export class VerifyTokenUseCase {
-	constructor(private readonly tokenService: TokenService) {}
+	constructor(private readonly tokenService: TokenService) { }
 
 	async perform(input: VerifyTokenInputDto): Promise<VerifyTokenOutputDto> {
 		if (!input.token) {
@@ -21,7 +22,7 @@ export class VerifyTokenUseCase {
 		try {
 			const { sub, organizationId, role } =
 				await this.tokenService.verify<VerifyTokenOutputDto>(
-					"access",
+					TokenType.ACCESS,
 					input.token.trim(),
 				);
 
