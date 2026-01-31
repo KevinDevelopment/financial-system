@@ -17,4 +17,13 @@ export class RefreshTokenRepositoryAdapter implements RefreshTokenRepository {
 			},
 		});
 	}
+
+	async getTokenById(id: bigint): Promise<RefreshToken | null> {
+		const refreshToken = await prisma.refreshToken.findUnique({
+			where: { id }
+		});
+
+		if (!refreshToken) return null;
+		return refreshTokenMapper.toDomain(refreshToken);
+	}
 }
