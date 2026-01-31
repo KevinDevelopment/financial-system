@@ -26,4 +26,11 @@ export class RefreshTokenRepositoryAdapter implements RefreshTokenRepository {
 		if (!refreshToken) return null;
 		return refreshTokenMapper.toDomain(refreshToken);
 	}
+
+	async updateRevokedAt(id: bigint, revokedAt: Date): Promise<void> {
+		await prisma.refreshToken.update({
+			where: { id },
+			data: { revokedAt }
+		});
+	}
 }

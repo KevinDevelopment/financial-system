@@ -1,37 +1,33 @@
-import { RefreshTokenUseCase } from "../../core/application/use-cases";
+import { LogoutUseCase } from "../../core/application/use-cases";
 import {
     RefreshTokenRepositoryAdapter,
-    UserRepositoryAdapter,
     TokenServiceAdapter
 } from "../../infrastructure/adapters";
 import { AplicationError } from "../../core/domain/errors";
-import { HttpResponse, HttpRequest } from "../ports";
+import { HttpRequest, HttpResponse } from "../ports";
 
-export class RefreshTokenController {
-    private readonly refreshTokenUseCase: RefreshTokenUseCase;
+export class LogoutController {
+    private readonly logoutUseCase: LogoutUseCase;
 
     constructor(
         refreshTokenRepositoryAdapter = new RefreshTokenRepositoryAdapter(),
-        userRepositoryAdapter = new UserRepositoryAdapter(),
-        tokenServiceAdapter = new TokenServiceAdapter()
+        tokenService = new TokenServiceAdapter()
     ) {
-        this.refreshTokenUseCase = new RefreshTokenUseCase(
+        this.logoutUseCase = new LogoutUseCase(
             refreshTokenRepositoryAdapter,
-            userRepositoryAdapter,
-            tokenServiceAdapter
+            tokenService
         )
     }
 
     async execute(httpRequest: HttpRequest): Promise<HttpResponse> {
         try {
-            const { accessToken } = await this.refreshTokenUseCase.perform({
+            await this.logoutUseCase.perform({
                 refreshToken: httpRequest.body.refreshToken
             });
 
             return {
-                code: 201,
-                message: "Token renovado com sucesso",
-                body: accessToken
+                code: 204,
+                message: "Deslogado com sucesso"
             }
         } catch (error) {
             if (error instanceof AplicationError) {

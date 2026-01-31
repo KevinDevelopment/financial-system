@@ -15,4 +15,25 @@ export class InMemoryRefreshTokenAdapter implements RefreshTokenRepository {
 		if (!tokenExistsById) return null;
 		return tokenExistsById;
 	}
+
+	async updateRevokedAt(id: bigint, revokedAt: Date): Promise<void> {
+		const index = this.databaseInMemory.findIndex(
+			(token) => token.id.value === id
+		);
+
+		if (index === -1) return;
+
+		const token = this.databaseInMemory[index];
+
+		const revokedToken = RefreshToken.create({
+			id: token.id.value,
+			userId: token.userId.value,
+			organizationId: token.organizationId.value,
+			expiresAt: token.expiresAt,
+			revokedAt
+		});
+
+		this.databaseInMemory[index] = revokedToken;
+	}
+
 }

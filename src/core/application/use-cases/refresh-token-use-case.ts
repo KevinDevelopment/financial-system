@@ -20,12 +20,15 @@ export class RefreshTokenUseCase {
             throw new InvalidCredentialsError("Refresh token inválido", 401);
         }
 
-        if (!this.isValidJwtFormat(input.refreshToken)) {
-            throw new InvalidCredentialsError("Refresh token inválido", 401);
+        let payload: { tokenId: bigint };
+        try {
+            payload = await this.tokenService.verify<{ tokenId: bigint }>(
+                TokenType.REFRESH,
+                input.refreshToken
+            );
+        } catch {
+            throw new InvalidCredentialsError("Refresh token inválido ou expirado", 401);
         }
-
-        const payload = await this.tokenService.verify<{ tokenId: bigint }>(TokenType.REFRESH, input.refreshToken);
-        console.log(payload);
         const tokenId = payload.tokenId;
 
         const tokenEntity = await this.refreshTokenRepository.getTokenById(tokenId);
@@ -51,16 +54,5 @@ export class RefreshTokenUseCase {
         });
 
         return { accessToken }
-    }
-
-    private isValidJwtFormat(token: string): boolean {
-        const parts = token.split('.');
-
-        if (parts.length !== 3) {
-            return false;
-        }
-
-        const base64UrlPattern = /^[A-Za-z0-9_-]+$/;
-        return parts.every(part => part.length > 0 && base64UrlPattern.test(part));
     }
 }

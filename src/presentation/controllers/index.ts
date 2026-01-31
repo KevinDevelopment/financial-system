@@ -5,3 +5,4 @@ export * from "./authenticate-user-controller";
 export * from "./create-account-controller";
 export * from "./create-transaction-controller";
 export * from "./refresh-token-user-controller";
+export * from "./logou-controller";

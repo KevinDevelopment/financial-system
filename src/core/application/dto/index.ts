@@ -6,3 +6,4 @@ export * from "./verify-token-dto";
 export * from "./create-account-dto";
 export * from "./create-transaction-dto";
 export * from "./refresh-token-dto";
+export * from "./logout-dto";

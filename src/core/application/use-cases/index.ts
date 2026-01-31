@@ -6,3 +6,4 @@ export * from "./verify-token-use-case";
 export * from "./create-account-use-case";
 export * from "./create-transaction-use-case";  
 export * from "./refresh-token-use-case";
+export * from "./logout-use-case";

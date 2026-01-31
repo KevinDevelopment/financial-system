@@ -6,3 +6,4 @@ export * from "./authenticate-user-route-adapter";
 export * from "./create-account-route-adapter";
 export * from "./create-transaction-route-adapter";
 export * from "./refresh-token-route-adapter";
+export * from "./logout-route-adapter";
