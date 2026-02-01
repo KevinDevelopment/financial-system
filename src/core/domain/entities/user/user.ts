@@ -1,6 +1,10 @@
-import { UniqueNumericId, OrganizationId } from "../../value-objects/global";
+import {
+	UniqueNumericId,
+	OrganizationId,
+	Name,
+} from "../../value-objects/global";
 import { BusinessRuleViolationError } from "../../errors";
-import { Email, Name, PasswordHash } from "../../value-objects/user";
+import { Email, PasswordHash } from "../../value-objects/user";
 import { UserProps } from "../../props";
 import { Role } from "../../value-objects/user";
 

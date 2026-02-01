@@ -1,6 +1,6 @@
 import { UniqueNumericId, OrganizationId } from "../../value-objects/global";
 import { RefreshTokenProps } from "../../props";
-import { UserId } from "../../value-objects/refresh-token";
+import { UserId } from "../../value-objects/global";
 
 export class RefreshToken {
 	private constructor(
@@ -9,15 +9,17 @@ export class RefreshToken {
 		readonly expiresAt: Date,
 		readonly revokedAt?: Date,
 		readonly id?: UniqueNumericId,
-	) {}
+	) { }
 
 	static create(props: RefreshTokenProps): RefreshToken {
+		const { userId, organizationId, expiresAt, revokedAt, id } = props;
+
 		return new RefreshToken(
-			UserId.create(props.userId),
-			OrganizationId.create(props.organizationId),
-			props.expiresAt ?? RefreshToken.defaultExpiration(),
-			props.revokedAt,
-			props.id ? UniqueNumericId.create(props.id) : UniqueNumericId.create(),
+			UserId.create(userId),
+			OrganizationId.create(organizationId),
+			expiresAt ?? RefreshToken.defaultExpiration(),
+			revokedAt,
+			id ? UniqueNumericId.create(id) : UniqueNumericId.create(),
 		);
 	}
 
@@ -45,7 +47,7 @@ export class RefreshToken {
 
 	private static defaultExpiration(): Date {
 		const date = new Date();
-		date.setDate(date.getDate() + 30);
+		date.setDate(date.getDate() + 8);
 		return date;
 	}
 }

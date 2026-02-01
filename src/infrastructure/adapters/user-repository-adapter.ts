@@ -31,7 +31,15 @@ export class UserRepositoryAdapter implements UserRepository {
 		});
 
 		if (!user) return null;
+		return userMapper.toDomain(user);
+	}
 
+	async findById(id: bigint): Promise<User | null> {
+		const user = await prisma.user.findUnique({
+			where: { id }
+		});
+
+		if (!user) return null;
 		return userMapper.toDomain(user);
 	}
 }

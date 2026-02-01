@@ -1,9 +1,9 @@
 export interface VerifyTokenInputDto {
-    token: string
+	token: string;
 }
 
 export interface VerifyTokenOutputDto {
-    sub: bigint,
-    organizationId: bigint,
-    role: number,
+	sub: bigint;
+	organizationId: bigint;
+	role: number;
 }

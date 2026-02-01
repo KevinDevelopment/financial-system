@@ -3,3 +3,7 @@ export * from "./make-create-organization-controller";
 export * from "./make-create-category-controller";
 export * from "./make-create-user-controller";
 export * from "./make-authenticate-user-controller";
+export * from "./make-create-account-controller";
+export * from "./make-create-transaction-controller";
+export * from "./make-refresh-token-controller";
+export * from "./make-logout-controller";

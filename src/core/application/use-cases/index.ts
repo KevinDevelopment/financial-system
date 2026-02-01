@@ -3,3 +3,7 @@ export * from "./create-category-use-case";
 export * from "./create-user-use-case";
 export * from "./authenticate-user-use-case";
 export * from "./verify-token-use-case";
+export * from "./create-account-use-case";
+export * from "./create-transaction-use-case";  
+export * from "./refresh-token-use-case";
+export * from "./logout-use-case";

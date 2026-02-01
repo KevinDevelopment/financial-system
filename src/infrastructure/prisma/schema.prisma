@@ -9,7 +9,7 @@ datasource db {
 
 model Organization {
   id           BigInt     @id
-  name         String     @db.VarChar(80)
+  name         String     @db.VarChar(100)
   socialReason String     @map("social_reason") @db.VarChar(150)
   phone        String     @db.VarChar(30)
   cnpj         String     @db.VarChar(14)
@@ -45,7 +45,7 @@ model Transaction {
 
 model Category {
   id             BigInt        @id
-  name           String        @db.VarChar(80)
+  name           String        @db.VarChar(100)
   description    String?       @db.VarChar(255)
   color          String        @db.VarChar(40)
   organizationId BigInt        @map("organization_id")
@@ -59,12 +59,14 @@ model Category {
 
 model Account {
   id             BigInt        @id
-  name           String        @db.VarChar(80)
+  name           String        @db.VarChar(100)
   type           Int           @db.SmallInt
   initialBalance Decimal       @map("initial_balance") @db.Decimal(10, 2)
   currentBalance Decimal       @map("current_balance") @db.Decimal(10, 2)
   organizationId BigInt        @map("organization_id")
   organization   Organization  @relation(fields: [organizationId], references: [id])
+  userId         BigInt        @map("user_id")
+  user           User          @relation(fields: [userId], references: [id])
   transactions   Transaction[]
   createdAt      DateTime      @default(now()) @map("created_at")
   updatedAt      DateTime      @updatedAt @map("updated_at")
@@ -82,6 +84,7 @@ model User {
   organization   Organization   @relation(fields: [organizationId], references: [id])
   transactions   Transaction[]
   refreshTokens  RefreshToken[]
+  accounts       Account[]
   createdAt      DateTime       @default(now()) @map("created_at")
   updatedAt      DateTime       @updatedAt @map("updated_at")
 
@@ -112,7 +115,6 @@ model Address {
   city         String        @db.VarChar(100)
   state        String        @db.VarChar(50)
   country      String        @db.VarChar(50)
-  zipCode      String?       @map("zip_code") @db.VarChar(20)
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
   organization Organization?
