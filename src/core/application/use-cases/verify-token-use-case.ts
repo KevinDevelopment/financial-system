@@ -4,7 +4,7 @@ import { VerifyTokenInputDto, VerifyTokenOutputDto } from "../dto";
 import { MissingDataError, InvalidValueError } from "../../domain/errors";
 
 export class VerifyTokenUseCase {
-	constructor(private readonly tokenService: TokenService) { }
+	constructor(private readonly tokenService: TokenService) {}
 
 	async perform(input: VerifyTokenInputDto): Promise<VerifyTokenOutputDto> {
 		if (!input.token) {

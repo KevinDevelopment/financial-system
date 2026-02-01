@@ -10,15 +10,15 @@ export class InMemoryRefreshTokenAdapter implements RefreshTokenRepository {
 
 	async getTokenById(id: bigint): Promise<RefreshToken | null> {
 		const tokenExistsById = this.databaseInMemory.find(
-			(token) => token.id.value === id
-		)
+			(token) => token.id.value === id,
+		);
 		if (!tokenExistsById) return null;
 		return tokenExistsById;
 	}
 
 	async updateRevokedAt(id: bigint, revokedAt: Date): Promise<void> {
 		const index = this.databaseInMemory.findIndex(
-			(token) => token.id.value === id
+			(token) => token.id.value === id,
 		);
 
 		if (index === -1) return;
@@ -30,10 +30,9 @@ export class InMemoryRefreshTokenAdapter implements RefreshTokenRepository {
 			userId: token.userId.value,
 			organizationId: token.organizationId.value,
 			expiresAt: token.expiresAt,
-			revokedAt
+			revokedAt,
 		});
 
 		this.databaseInMemory[index] = revokedToken;
 	}
-
 }

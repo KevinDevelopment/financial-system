@@ -1,6 +1,6 @@
 export interface TransactionProps {
 	userId: unknown;
-    accountId: unknown;
+	accountId: unknown;
 	amount: number;
 	type: number;
 	status: number;

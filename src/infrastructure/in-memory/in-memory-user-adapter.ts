@@ -18,8 +18,8 @@ export class InMemoryUserAdapter implements UserRepository {
 
 	async findById(id: bigint): Promise<User | null> {
 		const userExistsById = this.databaseInMemory.find(
-			(user) => user.id.value === id
-		)
+			(user) => user.id.value === id,
+		);
 		if (!userExistsById) return null;
 		return userExistsById;
 	}

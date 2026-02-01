@@ -20,7 +20,7 @@ export class RefreshTokenRepositoryAdapter implements RefreshTokenRepository {
 
 	async getTokenById(id: bigint): Promise<RefreshToken | null> {
 		const refreshToken = await prisma.refreshToken.findUnique({
-			where: { id }
+			where: { id },
 		});
 
 		if (!refreshToken) return null;
@@ -30,7 +30,7 @@ export class RefreshTokenRepositoryAdapter implements RefreshTokenRepository {
 	async updateRevokedAt(id: bigint, revokedAt: Date): Promise<void> {
 		await prisma.refreshToken.update({
 			where: { id },
-			data: { revokedAt }
+			data: { revokedAt },
 		});
 	}
 }

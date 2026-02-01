@@ -1,36 +1,46 @@
 import { RefreshTokenRepository } from "../repositories";
 import { TokenType } from "../types";
-import { TokenService, TokenBlackList } from "../services";
+import { TokenService, TokenCache } from "../services";
 import { LogoutInputDto } from "../dto";
 
 export class LogoutUseCase {
-    constructor(
-        private readonly refreshTokenRepository: RefreshTokenRepository,
-        private readonly tokenService: TokenService,
-        private readonly tokenBlacklist: TokenBlackList
-    ) { }
+	constructor(
+		private readonly refreshTokenRepository: RefreshTokenRepository,
+		private readonly tokenService: TokenService,
+		private readonly tokenCache: TokenCache, // agora usamos cache de tokens válidos
+	) {}
 
-    async perform(input: LogoutInputDto): Promise<void> {
-        if (!input.refreshToken) return;
-        if (typeof input.refreshToken !== 'string') return;
+	async perform(input: LogoutInputDto): Promise<void> {
+		if (!input.refreshToken || typeof input.refreshToken !== "string") return;
 
-        let payload: { tokenId: bigint, exp: number };
-        try {
-            payload = await this.tokenService.verify<{ tokenId: bigint, exp: number }>(
-                TokenType.REFRESH,
-                input.refreshToken
-            );
-        } catch {
-            return;
-        }
-        const tokenId = payload.tokenId;
-        const expiresAt = new Date(payload.exp * 1000);
-        const tokenEntity = await this.refreshTokenRepository.getTokenById(tokenId);
+		const payload = await this.verifyRefreshToken(input.refreshToken);
+		const tokenId = payload.tokenId;
+		const expiresAt = new Date(payload.exp * 1000);
 
-        if (!tokenEntity) return;
-        if (tokenEntity.isExpired() || tokenEntity.isRevoked()) return;
+		const tokenEntity = await this.refreshTokenRepository.getTokenById(tokenId);
+		if (!tokenEntity || tokenEntity.isExpired() || tokenEntity.isRevoked())
+			return;
 
-        await this.refreshTokenRepository.updateRevokedAt(tokenId, new Date());
-        await this.tokenBlacklist.revoke(tokenId, expiresAt);
-    }
+		// Marca revogado no banco
+		await this.refreshTokenRepository.updateRevokedAt(tokenId, new Date());
+		console.log(`[DB] Token ${tokenId.toString()} marcado como revogado`);
+
+		// Remove do cache / adiciona como inválido
+		await this.tokenCache.remove(tokenId);
+		console.log(`[CACHE] Token ${tokenId.toString()} removido do Redis`);
+	}
+
+	private async verifyRefreshToken(
+		token: string,
+	): Promise<{ tokenId: bigint; exp: number }> {
+		try {
+			return await this.tokenService.verify<{ tokenId: bigint; exp: number }>(
+				TokenType.REFRESH,
+				token,
+			);
+		} catch {
+			// token inválido ou expirado -> não faz nada
+			return { tokenId: 0n, exp: 0 }; // retorno dummy para não quebrar a execução
+		}
+	}
 }
