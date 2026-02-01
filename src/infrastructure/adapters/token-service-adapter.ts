@@ -5,7 +5,7 @@ import { TokenType } from "../../core/application/types";
 
 export class TokenServiceAdapter implements TokenService {
 	async generate(type: TokenType, payload: object): Promise<string> {
-		const expiresIn = type === TokenType.ACCESS ? "15m" : "30d";
+		const expiresIn = type === TokenType.ACCESS ? "15m" : "8d";
 		const secret =
 			type === TokenType.ACCESS
 				? process.env.ACCESS_TOKEN_SECRET

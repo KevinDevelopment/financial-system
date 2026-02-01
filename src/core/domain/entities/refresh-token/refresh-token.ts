@@ -47,7 +47,7 @@ export class RefreshToken {
 
 	private static defaultExpiration(): Date {
 		const date = new Date();
-		date.setDate(date.getDate() + 30);
+		date.setDate(date.getDate() + 8);
 		return date;
 	}
 }
