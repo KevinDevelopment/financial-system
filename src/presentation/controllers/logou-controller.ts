@@ -1,6 +1,7 @@
 import { LogoutUseCase } from "../../core/application/use-cases";
 import {
     RefreshTokenRepositoryAdapter,
+    RedisTokenBlacklist,
     TokenServiceAdapter
 } from "../../infrastructure/adapters";
 import { AplicationError } from "../../core/domain/errors";
@@ -11,11 +12,13 @@ export class LogoutController {
 
     constructor(
         refreshTokenRepositoryAdapter = new RefreshTokenRepositoryAdapter(),
-        tokenService = new TokenServiceAdapter()
+        tokenService = new TokenServiceAdapter(),
+        redisTokenBlacklist = new RedisTokenBlacklist()
     ) {
         this.logoutUseCase = new LogoutUseCase(
             refreshTokenRepositoryAdapter,
-            tokenService
+            tokenService,
+            redisTokenBlacklist
         )
     }
 

@@ -1,12 +1,13 @@
 import { RefreshTokenRepository, UserRepository } from "../repositories";
 import { RefreshTokenInputDto, RefreshTokenOutputDto } from "../dto";
-import { TokenService } from "../services";
+import { TokenService, TokenBlackList } from "../services";
 import { TokenType } from "../types";
 import { InvalidCredentialsError, MissingDataError } from "../../domain/errors";
 
 export class RefreshTokenUseCase {
     constructor(
         private readonly refreshTokenRepository: RefreshTokenRepository,
+        private readonly tokenBlackList: TokenBlackList,
         private readonly userRepository: UserRepository,
         private readonly tokenService: TokenService
     ) { }
@@ -17,7 +18,7 @@ export class RefreshTokenUseCase {
         }
 
         if (typeof input.refreshToken !== 'string') {
-            throw new InvalidCredentialsError("Refresh token inválido", 401);
+            throw new InvalidCredentialsError("Credenciais inválidas ou expiradas", 401);
         }
 
         let payload: { tokenId: bigint };
@@ -27,24 +28,34 @@ export class RefreshTokenUseCase {
                 input.refreshToken
             );
         } catch {
-            throw new InvalidCredentialsError("Refresh token inválido ou expirado", 401);
+            console.log("caiu no catch do verify");
+            throw new InvalidCredentialsError("Credenciais inválidas ou expiradas", 401);
         }
         const tokenId = payload.tokenId;
 
+        // 1️⃣ Verifica blacklist do Redis
+        const tokenIsRevokedInMemory = await this.tokenBlackList.isRevoked(tokenId);
+
+        if (tokenIsRevokedInMemory) {
+            console.log(`[CACHE] Token ${tokenId.toString()} revogado no Redis`);
+            throw new InvalidCredentialsError("Credenciais inválidas ou expiradas", 401);
+        }
+
+        // 2️⃣ Consulta no banco
         const tokenEntity = await this.refreshTokenRepository.getTokenById(tokenId);
 
-        if (!tokenEntity) {
-            throw new InvalidCredentialsError("Refresh token inválido ou expirado", 401);
+        if (!tokenEntity || tokenEntity.isExpired() || tokenEntity.isRevoked()) {
+            console.log(`[DB] Token ${tokenId.toString()} inválido ou revogado no banco`);
+            throw new InvalidCredentialsError("Credenciais inválidas ou expiradas", 401);
         }
 
-        if (tokenEntity.isExpired() || tokenEntity.isRevoked()) {
-            throw new InvalidCredentialsError("Refresh token expirado ou revogado", 401);
-        }
+        console.log(`[DB] Token ${tokenId.toString()} válido no banco`);
+
 
         const user = await this.userRepository.findById(tokenEntity.userId.value);
 
         if (!user) {
-            throw new InvalidCredentialsError("Usuário não encontrado", 401);
+            throw new InvalidCredentialsError("Credenciais inválidas ou expiradas", 401);
         }
 
         const accessToken = await this.tokenService.generate(TokenType.ACCESS, {
