@@ -1,7 +1,7 @@
 import { RefreshTokenUseCase } from "../../core/application/use-cases";
 import {
     RefreshTokenRepositoryAdapter,
-    RedisTokenBlacklist,
+    RedisTokenCache,
     UserRepositoryAdapter,
     TokenServiceAdapter
 } from "../../infrastructure/adapters";
@@ -13,13 +13,13 @@ export class RefreshTokenController {
 
     constructor(
         refreshTokenRepositoryAdapter = new RefreshTokenRepositoryAdapter(),
-        redisTokenBlacklist = new RedisTokenBlacklist(),
+        redisTokenCache = new RedisTokenCache(),
         userRepositoryAdapter = new UserRepositoryAdapter(),
         tokenServiceAdapter = new TokenServiceAdapter()
     ) {
         this.refreshTokenUseCase = new RefreshTokenUseCase(
             refreshTokenRepositoryAdapter,
-            redisTokenBlacklist,
+            redisTokenCache,
             userRepositoryAdapter,
             tokenServiceAdapter
         )

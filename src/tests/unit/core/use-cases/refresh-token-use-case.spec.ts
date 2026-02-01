@@ -1,7 +1,7 @@
 import { expect, test, describe, beforeEach, vi } from "vitest";
 import { UserProps, RefreshTokenProps } from "../../../../core/domain/props";
 import { RefreshTokenInputDto } from "../../../../core/application/dto";
-import { InMemoryRefreshTokenAdapter, InMemoryUserAdapter, InMemoryTokenServiceAdapter, InMemoryTokenBlacklist } from "../../../../infrastructure/in-memory";
+import { InMemoryRefreshTokenAdapter, InMemoryUserAdapter, InMemoryTokenServiceAdapter, InMemoryTokenCache } from "../../../../infrastructure/in-memory";
 import { RefreshTokenUseCase } from "../../../../core/application/use-cases/refresh-token-use-case";
 import { RefreshToken } from "../../../../core/domain/entities/refresh-token";
 import { InvalidCredentialsError, MissingDataError } from "../../../../core/domain/errors";
@@ -10,7 +10,7 @@ import { User } from "../../../../core/domain/entities/user";
 let refreshTokenRepository: InMemoryRefreshTokenAdapter;
 let userRepository: InMemoryUserAdapter;
 let tokenService: InMemoryTokenServiceAdapter;
-let tokenBlackList: InMemoryTokenBlacklist;
+let tokenCache: InMemoryTokenCache;
 let useCase: RefreshTokenUseCase;
 
 const userProps: UserProps = {
@@ -25,11 +25,11 @@ beforeEach(async () => {
     refreshTokenRepository = new InMemoryRefreshTokenAdapter();
     userRepository = new InMemoryUserAdapter();
     tokenService = new InMemoryTokenServiceAdapter();
-    tokenBlackList = new InMemoryTokenBlacklist();
+    tokenCache = new InMemoryTokenCache();
 
     useCase = new RefreshTokenUseCase(
         refreshTokenRepository,
-        tokenBlackList,
+        tokenCache,
         userRepository,
         tokenService
     );
@@ -202,8 +202,8 @@ describe("refresh token use case tests", () => {
         expect(refreshToken.expiresAt.getTime()).toBeGreaterThan(Date.now());
         expect(Math.abs(refreshToken.expiresAt.getTime() - eightDaysFromNow.getTime())).toBeLessThan(60000);
     });
-    
-    test("should throw error when token is revoked in memory (blacklist)", async () => {
+
+    test("should throw error when token is not in cache and invalid in DB", async () => {
         const user = User.create(userProps);
         await userRepository.create(user);
 
@@ -215,13 +215,12 @@ describe("refresh token use case tests", () => {
         const refreshToken = RefreshToken.create(refreshTokenProps);
         await refreshTokenRepository.create(refreshToken);
 
-        // Garante que o tokenId no mock é string, igual ao que será usado na blacklist
-        const tokenIdAsString = refreshToken.id!.value.toString();
+        // Simula verify do tokenService retornando tokenId
+        vi.spyOn(tokenService, 'verify').mockResolvedValue({ tokenId: refreshToken.id!.value } as any);
 
-        vi.spyOn(tokenService, 'verify').mockResolvedValue({ tokenId: tokenIdAsString } as any);
-
-        // Revoga usando a mesma representação string
-        await tokenBlackList.revoke(tokenIdAsString, refreshToken.expiresAt);
+        // Não adicionamos ao cache → deve bater no banco
+        // Mas vamos simular que o token foi revogado no banco
+        await refreshTokenRepository.updateRevokedAt(refreshToken.id!.value, new Date());
 
         const input: RefreshTokenInputDto = {
             refreshToken: "fake-token"
