@@ -42,7 +42,7 @@ export class Account {
 		amount: number;
 		type: number;
 		status: number;
-		paymentMethod: number;		
+		paymentMethod: number;
 		categoryId?: bigint;
 		description?: string;
 	}) {

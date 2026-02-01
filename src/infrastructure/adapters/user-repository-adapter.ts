@@ -36,7 +36,7 @@ export class UserRepositoryAdapter implements UserRepository {
 
 	async findById(id: bigint): Promise<User | null> {
 		const user = await prisma.user.findUnique({
-			where: { id }
+			where: { id },
 		});
 
 		if (!user) return null;

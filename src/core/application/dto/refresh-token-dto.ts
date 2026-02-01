@@ -1,7 +1,7 @@
 export interface RefreshTokenInputDto {
-    refreshToken: string
+	refreshToken: string;
 }
 
 export interface RefreshTokenOutputDto {
-    accessToken: string
+	accessToken: string;
 }

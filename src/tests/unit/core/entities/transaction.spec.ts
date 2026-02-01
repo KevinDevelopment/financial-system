@@ -11,7 +11,7 @@ let baseTransaction: TransactionProps;
 beforeEach(() => {
 	baseTransaction = Object.freeze({
 		userId: 123456n,
-        accountId: 654321n,
+		accountId: 654321n,
 		amount: 150.75,
 		type: TransactionType.EXPENSE,
 		status: TransactionStatus.OPEN,

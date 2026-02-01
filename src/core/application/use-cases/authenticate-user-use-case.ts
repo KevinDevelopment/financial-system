@@ -11,7 +11,7 @@ export class AuthenticateUserUseCase {
 		private readonly passwordComparer: PasswordHasher,
 		private readonly tokenService: TokenService,
 		private readonly refreshTokenRepository: RefreshTokenRepository,
-	) { }
+	) {}
 
 	async perform(
 		input: AuthenticateUserInputDto,
