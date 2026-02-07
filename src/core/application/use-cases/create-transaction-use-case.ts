@@ -6,7 +6,7 @@ export class CreateTransactionUseCase {
 	constructor(
 		private readonly accountRepository: AccountRepository,
 		private readonly transactionRepository: TransactionRepository,
-	) {}
+	) { }
 
 	async perform(
 		input: CreateTransactionInputDto,
@@ -45,6 +45,7 @@ export class CreateTransactionUseCase {
 
 		//pode causar dados inconsistentes se uma das operações falhar
 		// usar uma transação de banco de dados para garantir atomicidade
+		// o pattern Unit of Work pode ser uma boa opção para gerenciar isso
 		await this.transactionRepository.create(transaction);
 		await this.accountRepository.update(accountExists);
 
