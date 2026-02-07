@@ -72,6 +72,18 @@ export class Account {
 		});
 	}
 
+	public toProps(): AccountProps {
+		return {
+			id: this._id.value,
+			name: this._name.value,
+			type: this._type.value,
+			initialBalance: this._initialBalance.toDecimal(),
+			currentBalance: this._currentBalance.toDecimal(),
+			organizationId: this._organizationId.value,
+			userId: this._userId.value,
+		};
+	}
+
 	public get id(): UniqueNumericId {
 		return this._id;
 	}

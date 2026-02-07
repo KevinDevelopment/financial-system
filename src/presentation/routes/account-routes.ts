@@ -3,10 +3,12 @@ import {
 	makeRouteHandler,
 	makeCreateAccountController,
 	makeCreateTransactionController,
+	makeGetAccountsController
 } from "../factories";
 import {
 	CreateAccountControllerAdapter,
 	CreateTransactionControllerAdapter,
+	GetAccountsControllerAdapter
 } from "../route-adapters";
 import { AuthenticateMiddleware } from "../middleware";
 
@@ -28,4 +30,13 @@ export async function accountRoutes(fastify: FastifyInstance) {
 			makeCreateTransactionController,
 		),
 	);
+
+	fastify.get(
+		"/v1/accounts",
+		{ preHandler: AuthenticateMiddleware.authenticate },
+		makeRouteHandler(
+			GetAccountsControllerAdapter,
+			makeGetAccountsController
+		)
+	)
 }
