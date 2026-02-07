@@ -7,3 +7,4 @@ export * from "./token-service-adapter";
 export * from "./account-repository-adapter";
 export * from "./transaction-repository-adapter";
 export * from "./token-blacklist-adapter";
+export * from "./pagination-metadata-adapter";
