@@ -21,7 +21,7 @@ export const transactionMapper = {
 			id: row.id,
 			userId: row.userId,
 			accountId: row.accountId,
-			amount: row.ammount,
+			amount: row.amount,
 			type: row.type,
 			status: row.status,
 			paymentMethod: row.paymentMethod,

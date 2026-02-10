@@ -8,3 +8,4 @@ export * from "./make-create-transaction-controller";
 export * from "./make-refresh-token-controller";
 export * from "./make-logout-controller";
 export * from "./make-get-accounts-controller";
+export * from "./make-get-transactions-by-account-controller";

@@ -21,7 +21,7 @@ export class Transaction {
 		private readonly _categoryId?: CategoryId,
 		private readonly _description?: string,
 		private readonly _id?: UniqueNumericId,
-	) {}
+	) { }
 
 	public static create(props: TransactionProps) {
 		const {
@@ -60,6 +60,21 @@ export class Transaction {
 			description,
 			id ? UniqueNumericId.create(id) : UniqueNumericId.create(),
 		);
+	}
+
+	public toProps(): TransactionProps {
+		return {
+			userId: this._userId.value,
+			accountId: this._accountId.value,
+			amount: this._amount.toDecimal(),
+			type: this._type.value,
+			status: this._status.value,
+			paymentMethod: this._paymentMethod.value,
+			createdAt: this._createdAt,
+			categoryId: this._categoryId ? this._categoryId.value : undefined,
+			description: this._description,
+			id: this._id ? this._id.value : undefined,
+		}
 	}
 
 	public get userId(): UserId {

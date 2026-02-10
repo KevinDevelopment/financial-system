@@ -14,11 +14,7 @@ export class GetAccountsUseCase {
         const { organizationId } = input;
         const page = input.page ? input.page : 1;
         const perPage = input.perPage ? input.perPage : 50;
-
-        console.log({
-            page, perPage
-        })
-
+        
         const result = await this.accountRepository.getAccounts(
             organizationId,
             page,

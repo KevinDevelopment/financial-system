@@ -1,7 +1,7 @@
 import { CreateAccountUseCase } from "../../core/application/use-cases";
 import { AccountRepositoryAdapter } from "../../infrastructure/adapters";
 import { AplicationError } from "../../core/domain/errors";
-import { HttpResponse, HttpRequest } from "../ports";
+import { HttpRequest, HttpResponse } from "../ports";
 
 export class CreateAccountController {
 	private readonly createAccountUseCase: CreateAccountUseCase;
