@@ -1,16 +1,21 @@
 import { TransactionRepository, AccountRepository } from "../repositories";
 import { CreateTransactionInputDto, CreateTransactionOutputDto } from "../dto";
-import { DataAlreadyExistsError, MissingDataError } from "../../domain/errors";
+import { DataAlreadyExistsError, MissingDataError, UnauthorizedError } from "../../domain/errors";
+import { TransactionPolicy } from "../policies";
 
 export class CreateTransactionUseCase {
 	constructor(
 		private readonly accountRepository: AccountRepository,
 		private readonly transactionRepository: TransactionRepository,
-	) {}
+	) { }
 
 	async perform(
 		input: CreateTransactionInputDto,
 	): Promise<CreateTransactionOutputDto> {
+		if (!TransactionPolicy.canCreate(input.auth)) {
+			throw new UnauthorizedError("Permissão negada", 403);
+		}
+
 		if (!input.accountId) {
 			throw new MissingDataError("Obrigatório informar a conta", 400);
 		}
@@ -20,8 +25,16 @@ export class CreateTransactionUseCase {
 		);
 
 		if (!accountExists) {
-			throw new MissingDataError("Conta não encontrada", 400);
+			throw new MissingDataError("Permissão negada", 400);
 		}
+
+		if (
+			accountExists.organizationId.value !==
+			input.auth.organizationId
+		) {
+			throw new UnauthorizedError("Permissão negada", 403);
+		}
+
 
 		const transaction = accountExists.createTransaction({
 			amount: input.amount,
@@ -34,7 +47,7 @@ export class CreateTransactionUseCase {
 
 		const transactionAlreadyExists =
 			await this.transactionRepository.findByUserAndDescriptionAndDate(
-				input.userId,
+				input.auth.userId,
 				input.description,
 				transaction.createdAt,
 			);

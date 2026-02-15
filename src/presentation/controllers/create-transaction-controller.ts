@@ -28,8 +28,12 @@ export class CreateTransactionController {
 				type: httpRequest.body.type,
 				paymentMethod: httpRequest.body.paymentMethod,
 				description: httpRequest.body.description,
-				userId: httpRequest.body.userId,
 				categoryId: httpRequest.body.categoryId,
+				auth: {
+					userId: httpRequest.tenant.userId,
+					organizationId: httpRequest.tenant.organizationId,
+					role: httpRequest.tenant.role
+				}
 			});
 
 			return {

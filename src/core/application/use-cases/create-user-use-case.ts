@@ -1,22 +1,26 @@
 import { UserRepository } from "../repositories";
 import { CreateUserInputDto, CreateUserOutputDto } from "../dto";
-import { DataAlreadyExistsError } from "../../domain/errors";
+import { DataAlreadyExistsError, UnauthorizedError } from "../../domain/errors";
 import { PasswordHasher } from "../services";
-import { PasswordStrengthPolicy } from "../policies";
+import { PasswordStrengthPolicy, UserPolicy } from "../policies";
 import { User } from "../../domain/entities/user";
 
 export class CreateUserUseCase {
 	constructor(
 		private readonly userRepository: UserRepository,
 		private readonly passwordHasher: PasswordHasher,
-	) {}
+	) { }
 
 	async perform(input: CreateUserInputDto): Promise<CreateUserOutputDto> {
+		if (!UserPolicy.create(input.auth)) {
+			throw new UnauthorizedError("Permissão negada", 403)
+		}
+
 		const user = User.create({
 			name: input.name,
 			email: input.email,
-			role: input.role,
-			organizationId: input.organizationId,
+			role: input.auth.role,
+			organizationId: input.auth.organizationId,
 		});
 
 		const emailAlreadyExists = await this.userRepository.findByEmail(

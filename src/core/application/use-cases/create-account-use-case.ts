@@ -1,13 +1,22 @@
 import { AccountRepository } from "../repositories";
 import { CreateAccountInputDto, CreateAccountOutputDto } from "../dto";
-import { DataAlreadyExistsError } from "../../domain/errors";
+import { DataAlreadyExistsError, UnauthorizedError } from "../../domain/errors";
 import { Account } from "../../domain/entities/account";
+import { AccountPolicy } from "../policies";
 
 export class CreateAccountUseCase {
-	constructor(private readonly accountRepository: AccountRepository) {}
+	constructor(private readonly accountRepository: AccountRepository) { }
 
 	async perform(input: CreateAccountInputDto): Promise<CreateAccountOutputDto> {
-		const account = Account.create(input);
+		if (!AccountPolicy.create(input.auth)) {
+			throw new UnauthorizedError("Permissão negada", 403)
+		}
+		
+		const account = Account.create({
+			...input,
+			organizationId: input.auth.organizationId,
+			userId: input.auth.userId
+		});
 
 		const nameAlreadyExists = await this.accountRepository.findByName(
 			account.name.value,

@@ -19,8 +19,11 @@ export class CreateAccountController {
 				type: httpRequest.body.type,
 				initialBalance: httpRequest.body.initialBalance,
 				currentBalance: httpRequest.body.currentBalance,
-				organizationId: httpRequest.tenant.organizationId,
-				userId: httpRequest.tenant.sub,
+				auth: {
+					userId: httpRequest.tenant.userId,
+					role: httpRequest.tenant.role,
+					organizationId: httpRequest.tenant.organizationId
+				}
 			});
 
 			return {

@@ -24,9 +24,12 @@ export class CreateUserController {
 			const result = await this.createUserUseCase.perform({
 				name: httpRequest.body.name,
 				email: httpRequest.body.email,
-				role: httpRequest.body.role,
 				password: httpRequest.body.password,
-				organizationId: httpRequest.tenant.organizationId,
+				auth: {
+					userId: httpRequest.tenant.userId,
+					role: httpRequest.tenant.role,
+					organizationId: httpRequest.tenant.organizationId
+				}
 			});
 
 			return {

@@ -1,9 +1,10 @@
+import { AuthContext } from "../types";
+
 export interface CreateUserInputDto {
 	name: string;
 	email: string;
-	role: number;
 	password: string;
-	organizationId: bigint;
+	auth: AuthContext
 }
 
 export interface CreateUserOutputDto {
