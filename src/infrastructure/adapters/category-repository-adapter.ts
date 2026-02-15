@@ -44,13 +44,13 @@ export class CategoryRepositoryAdapter implements CategoryRepository {
 		const skip = (page - 1) * perPage;
 
 		const [categories, total] = await prisma.$transaction([
-			prisma.account.findMany({
+			prisma.category.findMany({
 				where: { organizationId },
 				skip,
 				take: perPage,
 				orderBy: { createdAt: "desc" },
 			}),
-			prisma.account.count({
+			prisma.category.count({
 				where: { organizationId },
 			}),
 		]);
