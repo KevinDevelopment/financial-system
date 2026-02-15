@@ -1,3 +1,4 @@
+import { config } from "./get-secrets";
 import { createClient, RedisClientType } from "redis";
 
 class Redis {
@@ -6,7 +7,7 @@ class Redis {
 	public static instance(): RedisClientType {
 		if (!Redis.client) {
 			Redis.client = createClient({
-				url: process.env.REDIS_URL,
+				url: config.redis.url,
 			});
 
 			Redis.client.on("error", (err) => console.error("Redis Error:", err));

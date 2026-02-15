@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+echo "⏳ Aguardando Postgres..."
+until pg_isready -h dcs-postgres -p 5432 -U postgres; do
+  sleep 2
+done
+
+echo "🚀 Rodando migrations..."
+npx prisma migrate deploy
+
+echo "🌱 Rodando seed..."
+npx prisma db seed
+
+echo "🔥 Subindo aplicação..."
+exec node dist/src/web/server.js

@@ -1,5 +1,6 @@
 import { fastify } from "./app";
 import { registerRoutes } from "../routes";
+import { config } from "../../infrastructure/config";
 
 async function bootstrap() {
 	fastify.register(registerRoutes);
