@@ -29,11 +29,10 @@ export class InMemoryTransactionAdapter implements TransactionRepository {
 	async getByAccount(
 		accountId: bigint,
 		page?: number,
-		perPage?: number
+		perPage?: number,
 	): Promise<PaginatedResult<TransactionProps>> {
-
 		const filtered = this.databaseInMemory.filter(
-			(t) => t.accountId.value === accountId
+			(t) => t.accountId.value === accountId,
 		);
 
 		const total = filtered.length;
@@ -47,7 +46,7 @@ export class InMemoryTransactionAdapter implements TransactionRepository {
 
 		return {
 			data,
-			total
+			total,
 		};
 	}
 }

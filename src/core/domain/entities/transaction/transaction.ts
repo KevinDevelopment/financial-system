@@ -21,7 +21,7 @@ export class Transaction {
 		private readonly _categoryId?: CategoryId,
 		private readonly _description?: string,
 		private readonly _id?: UniqueNumericId,
-	) { }
+	) {}
 
 	public static create(props: TransactionProps) {
 		const {
@@ -74,7 +74,7 @@ export class Transaction {
 			categoryId: this._categoryId ? this._categoryId.value : undefined,
 			description: this._description,
 			id: this._id ? this._id.value : undefined,
-		}
+		};
 	}
 
 	public get userId(): UserId {

@@ -39,11 +39,10 @@ export class InMemoryAccountAdapter implements AccountRepository {
 	async getAccounts(
 		organizationId: bigint,
 		page: number,
-		perPage: number
+		perPage: number,
 	): Promise<PaginatedResult<AccountProps>> {
-
 		const filtered = this.databaseInMemory.filter(
-			(acc) => acc.organizationId.value === organizationId
+			(acc) => acc.organizationId.value === organizationId,
 		);
 
 		const total = filtered.length;
@@ -60,12 +59,12 @@ export class InMemoryAccountAdapter implements AccountRepository {
 			initialBalance: account.initialBalance.toDecimal(),
 			currentBalance: account.currentBalance.toDecimal(),
 			organizationId: account.organizationId.value,
-			userId: account.userId.value
+			userId: account.userId.value,
 		}));
 
 		return {
 			data,
-			total
+			total,
 		};
 	}
 }

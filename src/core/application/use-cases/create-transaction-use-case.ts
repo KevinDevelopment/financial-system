@@ -6,7 +6,7 @@ export class CreateTransactionUseCase {
 	constructor(
 		private readonly accountRepository: AccountRepository,
 		private readonly transactionRepository: TransactionRepository,
-	) { }
+	) {}
 
 	async perform(
 		input: CreateTransactionInputDto,

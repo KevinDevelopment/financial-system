@@ -46,33 +46,32 @@ export class TransactionRepositoryAdapter implements TransactionRepository {
 	async getByAccount(
 		accountId: bigint,
 		page?: number,
-		perPage?: number
+		perPage?: number,
 	): Promise<PaginatedResult<TransactionProps>> {
-
 		const skip = (page - 1) * perPage;
 
 		const [transactions, total] = await prisma.$transaction([
 			prisma.transaction.findMany({
 				where: { accountId },
 				skip,
-				take: perPage
+				take: perPage,
 			}),
 			prisma.transaction.count({
-				where: { accountId }
-			})
+				where: { accountId },
+			}),
 		]);
 
-		console.log(transactions)
+		console.log(transactions);
 
-		const data = transactions.map(transaction =>
-			transactionMapper.toDomain(transaction).toProps()
+		const data = transactions.map((transaction) =>
+			transactionMapper.toDomain(transaction).toProps(),
 		);
 
-		console.log(data)
+		console.log(data);
 
 		return {
 			data,
-			total
-		}
+			total,
+		};
 	}
 }

@@ -9,5 +9,9 @@ export interface TransactionRepository {
 		description: string,
 		createdAt: Date,
 	): Promise<Transaction | null>;
-	getByAccount(accountId: bigint, page?: number, perPage?: number): Promise<PaginatedResult<TransactionProps>>
+	getByAccount(
+		accountId: bigint,
+		page?: number,
+		perPage?: number,
+	): Promise<PaginatedResult<TransactionProps>>;
 }
