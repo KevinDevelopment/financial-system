@@ -5,17 +5,17 @@ import { Account } from "../../domain/entities/account";
 import { AccountPolicy } from "../policies";
 
 export class CreateAccountUseCase {
-	constructor(private readonly accountRepository: AccountRepository) { }
+	constructor(private readonly accountRepository: AccountRepository) {}
 
 	async perform(input: CreateAccountInputDto): Promise<CreateAccountOutputDto> {
 		if (!AccountPolicy.create(input.auth)) {
-			throw new UnauthorizedError("Permissão negada", 403)
+			throw new UnauthorizedError("Permissão negada", 403);
 		}
-		
+
 		const account = Account.create({
 			...input,
 			organizationId: input.auth.organizationId,
-			userId: input.auth.userId
+			userId: input.auth.userId,
 		});
 
 		const nameAlreadyExists = await this.accountRepository.findByName(

@@ -4,7 +4,7 @@ import { AuthContext } from "../types";
 
 export interface GetTransactionsByAccountInputDto {
 	accountId: bigint;
-	auth: AuthContext,
+	auth: AuthContext;
 	page?: number;
 	perPage?: number;
 }

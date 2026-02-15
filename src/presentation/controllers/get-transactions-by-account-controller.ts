@@ -29,7 +29,7 @@ export class GetTransactionsByAccountController {
 				auth: {
 					userId: httpRequest.tenant.userId,
 					role: httpRequest.tenant.role,
-					organizationId: httpRequest.tenant.organizationId
+					organizationId: httpRequest.tenant.organizationId,
 				},
 				page: +httpRequest.query.page,
 				perPage: +httpRequest.query.perPage,

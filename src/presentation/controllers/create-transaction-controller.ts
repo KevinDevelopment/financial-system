@@ -32,8 +32,8 @@ export class CreateTransactionController {
 				auth: {
 					userId: httpRequest.tenant.userId,
 					organizationId: httpRequest.tenant.organizationId,
-					role: httpRequest.tenant.role
-				}
+					role: httpRequest.tenant.role,
+				},
 			});
 
 			return {

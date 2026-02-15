@@ -12,7 +12,7 @@ export class GetTransactionsByAccountUseCase {
 		private readonly accountRepository: AccountRepository,
 		private readonly transactionRepository: TransactionRepository,
 		private readonly paginationMetadataBuilder: PaginationMetadataBuilder,
-	) { }
+	) {}
 
 	async Perform(
 		input: GetTransactionsByAccountInputDto,
@@ -35,10 +35,7 @@ export class GetTransactionsByAccountUseCase {
 			throw new MissingDataError("Conta informada não existe", 400);
 		}
 
-		if (
-			accountExists.organizationId.value !==
-			input.auth.organizationId
-		) {
+		if (accountExists.organizationId.value !== input.auth.organizationId) {
 			throw new UnauthorizedError("Permissão negada", 403);
 		}
 

@@ -8,7 +8,7 @@ export interface CreateTransactionInputDto {
 	paymentMethod: number;
 	categoryId?: bigint;
 	description?: string;
-	auth: AuthContext
+	auth: AuthContext;
 }
 
 export interface CreateTransactionOutputDto {

@@ -4,7 +4,7 @@ export interface CreateUserInputDto {
 	name: string;
 	email: string;
 	password: string;
-	auth: AuthContext
+	auth: AuthContext;
 }
 
 export interface CreateUserOutputDto {

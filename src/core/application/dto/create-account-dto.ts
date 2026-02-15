@@ -5,7 +5,7 @@ export interface CreateAccountInputDto {
 	name: string;
 	initialBalance: number;
 	currentBalance: number;
-	auth: AuthContext
+	auth: AuthContext;
 }
 
 export interface CreateAccountOutputDto {

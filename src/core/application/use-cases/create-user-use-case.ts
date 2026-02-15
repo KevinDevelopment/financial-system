@@ -9,11 +9,11 @@ export class CreateUserUseCase {
 	constructor(
 		private readonly userRepository: UserRepository,
 		private readonly passwordHasher: PasswordHasher,
-	) { }
+	) {}
 
 	async perform(input: CreateUserInputDto): Promise<CreateUserOutputDto> {
 		if (!UserPolicy.create(input.auth)) {
-			throw new UnauthorizedError("Permissão negada", 403)
+			throw new UnauthorizedError("Permissão negada", 403);
 		}
 
 		const user = User.create({

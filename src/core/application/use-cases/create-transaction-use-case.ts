@@ -1,13 +1,17 @@
 import { TransactionRepository, AccountRepository } from "../repositories";
 import { CreateTransactionInputDto, CreateTransactionOutputDto } from "../dto";
-import { DataAlreadyExistsError, MissingDataError, UnauthorizedError } from "../../domain/errors";
+import {
+	DataAlreadyExistsError,
+	MissingDataError,
+	UnauthorizedError,
+} from "../../domain/errors";
 import { TransactionPolicy } from "../policies";
 
 export class CreateTransactionUseCase {
 	constructor(
 		private readonly accountRepository: AccountRepository,
 		private readonly transactionRepository: TransactionRepository,
-	) { }
+	) {}
 
 	async perform(
 		input: CreateTransactionInputDto,
@@ -28,13 +32,9 @@ export class CreateTransactionUseCase {
 			throw new MissingDataError("Permissão negada", 400);
 		}
 
-		if (
-			accountExists.organizationId.value !==
-			input.auth.organizationId
-		) {
+		if (accountExists.organizationId.value !== input.auth.organizationId) {
 			throw new UnauthorizedError("Permissão negada", 403);
 		}
-
 
 		const transaction = accountExists.createTransaction({
 			amount: input.amount,
