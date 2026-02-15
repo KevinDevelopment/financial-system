@@ -1,5 +1,7 @@
 import { User } from "../../core/domain/entities/user";
 import { UserRepository } from "../../core/application/repositories";
+import { PaginatedResult } from "../../core/application/shared";
+import { UserProps } from "../../core/domain/props";
 
 export class InMemoryUserAdapter implements UserRepository {
 	private readonly databaseInMemory: Array<User> = [];
@@ -22,5 +24,35 @@ export class InMemoryUserAdapter implements UserRepository {
 		);
 		if (!userExistsById) return null;
 		return userExistsById;
+	}
+
+	async getUsers(
+		organizationId: bigint,
+		page: number,
+		perPage: number,
+	): Promise<PaginatedResult<UserProps>> {
+		const filtered = this.databaseInMemory.filter(
+			(acc) => acc.organizationId.value === organizationId,
+		);
+
+		const total = filtered.length;
+
+		const start = (page - 1) * perPage;
+		const end = start + perPage;
+
+		const paginated = filtered.slice(start, end);
+
+		const data = paginated.map((user) => ({
+			id: user.id.value,
+			name: user.name.value,
+			email: user.email.value,
+			role: user.role.type,
+			organizationId: user.organizationId.value,
+		}));
+
+		return {
+			data,
+			total,
+		};
 	}
 }

@@ -10,3 +10,4 @@ export * from "./make-logout-controller";
 export * from "./make-get-accounts-controller";
 export * from "./make-get-transactions-by-account-controller";
 export * from "./make-get-categories-controller";
+export * from "./make-get-users-controller";

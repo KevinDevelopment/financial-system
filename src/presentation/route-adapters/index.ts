@@ -10,3 +10,4 @@ export * from "./logout-route-adapter";
 export * from "./get-accounts-route-adapter";
 export * from "./get-transactions-by-account-route-adapter";
 export * from "./get-categories-route-adapter";
+export * from "./get-users-route-adapter";

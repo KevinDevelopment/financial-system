@@ -9,3 +9,4 @@ export * from "./logou-controller";
 export * from "./get-accounts-controller";
 export * from "./get-transactions-by-account-controller";
 export * from "./get-categories-controller";
+export * from "./get-users-controller";

@@ -10,3 +10,4 @@ export * from "./logout-use-case";
 export * from "./get-accounts-use-case";
 export * from "./get-transactions-by-account-use-case";
 export * from "./get-categories-use-case";
+export * from "./get-users-use-case";

@@ -10,3 +10,4 @@ export * from "./logout-dto";
 export * from "./get-accounts-dto";
 export * from "./get-transactions-by-account";
 export * from "./get-categories-dto";
+export * from "./get-users-dto";

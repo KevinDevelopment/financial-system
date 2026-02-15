@@ -5,12 +5,14 @@ import {
 	makeCreateUserController,
 	makeRefreshTokenController,
 	makeLogoutController,
+	makeGetUsersController,
 } from "../factories";
 import {
 	CreateUserControllerAdapter,
 	AuthenticateUserControllerAdapter,
 	RefreshTokenControllerAdapter,
 	LogoutControllerAdapter,
+	GetUsersControllerAdapter,
 } from "../route-adapters";
 import { AuthenticateMiddleware } from "../middleware";
 
@@ -37,5 +39,11 @@ export async function userRoutes(fastify: FastifyInstance) {
 	fastify.post(
 		"/v1/auth/logout",
 		makeRouteHandler(LogoutControllerAdapter, makeLogoutController),
+	);
+
+	fastify.get(
+		"/v1/users",
+		{ preHandler: AuthenticateMiddleware.authenticate },
+		makeRouteHandler(GetUsersControllerAdapter, makeGetUsersController),
 	);
 }
