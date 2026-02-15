@@ -39,6 +39,16 @@ export class Category {
 		);
 	}
 
+	public toProps(): CategoryProps {
+		return {
+			id: this._id.value,
+			color: this._color.value,
+			name: this._name.value,
+			description: this._description,
+			organizationId: this._organizationId.value,
+		};
+	}
+
 	public get id(): UniqueNumericId {
 		return this._id;
 	}
