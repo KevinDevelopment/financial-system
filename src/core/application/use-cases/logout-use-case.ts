@@ -7,7 +7,7 @@ export class LogoutUseCase {
 	constructor(
 		private readonly refreshTokenRepository: RefreshTokenRepository,
 		private readonly tokenService: TokenService,
-		private readonly tokenCache: TokenCache, // agora usamos cache de tokens válidos
+		private readonly tokenCache: TokenCache, 
 	) {}
 
 	async perform(input: LogoutInputDto): Promise<void> {
@@ -21,13 +21,8 @@ export class LogoutUseCase {
 		if (!tokenEntity || tokenEntity.isExpired() || tokenEntity.isRevoked())
 			return;
 
-		// Marca revogado no banco
 		await this.refreshTokenRepository.updateRevokedAt(tokenId, new Date());
-		console.log(`[DB] Token ${tokenId.toString()} marcado como revogado`);
-
-		// Remove do cache / adiciona como inválido
 		await this.tokenCache.remove(tokenId);
-		console.log(`[CACHE] Token ${tokenId.toString()} removido do Redis`);
 	}
 
 	private async verifyRefreshToken(
@@ -39,8 +34,7 @@ export class LogoutUseCase {
 				token,
 			);
 		} catch {
-			// token inválido ou expirado -> não faz nada
-			return { tokenId: 0n, exp: 0 }; // retorno dummy para não quebrar a execução
+			return { tokenId: 0n, exp: 0 }; 
 		}
 	}
 }

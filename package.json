@@ -22,7 +22,7 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"type": "module",
+	"type": "commonjs",
 	"devDependencies": {
 		"@biomejs/biome": "2.3.6",
 		"@types/bcrypt": "^6.0.0",

@@ -17,12 +17,8 @@ const REQUIRED_SECRETS = [
     "database_url",
     "port",
     "postgres_db",
-    "postgres_host_port",
-    "postgres_internal_port",
     "postgres_password",
     "postgres_user",
-    "redis_host_port",
-    "redis_internal_port",
     "redis_password",
     "redis_url",
     "refresh_token_secret",
@@ -45,22 +41,14 @@ export const config = {
     accessTokenSecret: getSecret("access_token_secret"),
     refreshTokenSecret: getSecret("refresh_token_secret"),
     tokenAlgorithm: getSecret("token_algorithm"),
-
     databaseUrl: getSecret("database_url"),
-    port: Number(getSecret("port")),
-
     postgres: {
         db: getSecret("postgres_db"),
         user: getSecret("postgres_user"),
-        password: getSecret("postgres_password"),
-        hostPort: getSecret("postgres_host_port"),
-        internalPort: getSecret("postgres_internal_port"),
+        password: getSecret("postgres_password")
     },
-
     redis: {
         url: getSecret("redis_url"),
-        password: getSecret("redis_password"),
-        hostPort: getSecret("redis_host_port"),
-        internalPort: getSecret("redis_internal_port"),
+        password: getSecret("redis_password")
     },
 };
