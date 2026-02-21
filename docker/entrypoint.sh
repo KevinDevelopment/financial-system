@@ -1,8 +1,10 @@
 #!/bin/sh
 set -e
 
+DB_USER=$(cat /run/secrets/postgres_user)
+
 echo "⏳ Aguardando Postgres..."
-until pg_isready -h dcs-postgres -p 5432 -U postgres; do
+until pg_isready -h postgres -p 5432 -U "$DB_USER"; do
   sleep 2
 done
 
@@ -13,4 +15,4 @@ echo "🌱 Rodando seed..."
 npx prisma db seed
 
 echo "🔥 Subindo aplicação..."
-exec node dist/src/web/server.js
+exec node dist/src/presentation/web/server.js

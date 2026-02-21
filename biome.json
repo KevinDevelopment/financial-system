@@ -6,7 +6,15 @@
 		"useIgnoreFile": false
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": [
+			"node_modules",
+			"dist",
+			"*.min.js",
+			"tokens",
+			"coverage",
+			"data"
+		]
 	},
 	"formatter": {
 		"enabled": true,

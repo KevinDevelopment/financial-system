@@ -3,6 +3,9 @@
 	"version": "1.0.0",
 	"description": "financial system",
 	"main": "index.js",
+	"engines": {
+		"node": "^22.21.1"
+	},
 	"scripts": {
 		"test": "vitest",
 		"coverage": "vitest run --coverage",
@@ -19,7 +22,7 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"type": "commonjs",
+	"type": "module",
 	"devDependencies": {
 		"@biomejs/biome": "2.3.6",
 		"@types/bcrypt": "^6.0.0",

@@ -26,7 +26,7 @@ services:
         order: stop-first
 
   redis:
-    image: redis:latest   
+    image: redis:7.2-alpine   
     secrets:
       - redis_password
     command: >
@@ -42,9 +42,6 @@ services:
       - shared_network
     deploy:
       replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
       restart_policy:
         condition: on-failure
       update_config:
@@ -53,9 +50,13 @@ services:
         order: stop-first
 
   financial-system:
-    image: financy-image
+    image: teste-image
     networks:
       - shared_network
+    secrets:
+      - postgres_user
+      - postgres_password
+      - postgres_db
     ports:
       - target: 8755
         published: 8755

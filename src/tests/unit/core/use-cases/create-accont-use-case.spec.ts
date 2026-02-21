@@ -2,19 +2,23 @@ import { expect, test, describe, beforeEach, vitest } from "vitest";
 import { InMemoryAccountAdapter } from "../../../../infrastructure/in-memory";
 import { CreateAccountUseCase } from "../../../../core/application/use-cases";
 import { AccountProps } from "../../../../core/domain/props";
+import { CreateAccountInputDto } from "../../../../core/application/dto";
 import { DataAlreadyExistsError } from "../../../../core/domain/errors";
 import { Account } from "../../../../core/domain/entities/account";
 import { AccountType } from "../../../../core/domain/entities/account/account-type";
 
 let repository: InMemoryAccountAdapter;
 let useCase: CreateAccountUseCase;
-const correctValues: AccountProps = {
+const correctValues: CreateAccountInputDto = {
 	currentBalance: 1.1,
 	initialBalance: 0,
 	name: "conta teste",
-	organizationId: 123n,
-	userId: 345n,
 	type: AccountType.SAVINGS,
+	auth: {
+		organizationId: 123n,
+		userId: 345n,
+		role: 2
+	}
 };
 
 beforeEach(() => {
@@ -35,12 +39,16 @@ describe("create account use case tests", () => {
 		expect(spyMethodFindByName).toBeCalledTimes(1);
 		expect(spyMethodFindByName).toBeCalledWith(
 			correctValues.name,
-			correctValues.userId as bigint,
+			correctValues.auth.userId as bigint,
 		);
 	});
 
 	test("Should return an error if account exists with same name for the user", async () => {
-		const account = Account.create(correctValues);
+		const account = Account.create({ 
+			...correctValues,
+			organizationId: correctValues.auth.organizationId,
+			userId: correctValues.auth.userId
+		 });
 		repository.create(account);
 
 		try {

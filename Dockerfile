@@ -1,4 +1,4 @@
-FROM node:20.19.1-bookworm
+FROM node:22-bookworm
 
 RUN mkdir -p /home/node/app/node_modules \
     /home/node/app/docker
