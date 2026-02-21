@@ -48,6 +48,7 @@ services:
       - refresh_token_secret
       - token_algorithm
       - database_url
+      - redis_url
     environment:
       NODE_ENV: production
       PORT: 8755
@@ -85,6 +86,8 @@ secrets:
   token_algorithm:
     external: true
   database_url:
+    external: true
+  redis_url:
     external: true
 
 networks:
