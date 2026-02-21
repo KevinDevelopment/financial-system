@@ -15,7 +15,6 @@ function getSecret(name: string): string {
 const REQUIRED_SECRETS = [
     "access_token_secret",
     "database_url",
-    "port",
     "postgres_db",
     "postgres_password",
     "postgres_user",
