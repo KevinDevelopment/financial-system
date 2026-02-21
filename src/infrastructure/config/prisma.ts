@@ -1,4 +1,5 @@
 import { PrismaClient } from "../generated/prisma/client";
+import { config } from "./get-secrets";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 class Prisma {
@@ -7,7 +8,7 @@ class Prisma {
 	public static get instance(): PrismaClient {
 		if (!this._instance) {
 			const adapter = new PrismaPg({
-				connectionString: process.env.DATABASE_URL,
+				connectionString: config.databaseUrl,
 			});
 
 			this._instance = new PrismaClient({
