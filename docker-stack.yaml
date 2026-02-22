@@ -13,6 +13,7 @@ services:
       - token_algorithm
       - database_url
       - redis_url
+      - seed_admin_password
     environment:
       NODE_ENV: production
       PORT: 8755
@@ -54,6 +55,8 @@ secrets:
   database_url:
     external: true
   redis_url:
+    external: true
+  seed_admin_password:
     external: true
 
 networks:

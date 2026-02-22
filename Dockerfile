@@ -27,4 +27,4 @@ USER node
 EXPOSE 8755
 
 ENTRYPOINT ["dumb-init", "--"]
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/presentation/web/server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed && node dist/src/presentation/web/server.js"]

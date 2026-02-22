@@ -16,9 +16,6 @@
 		"build": "rm -rf ./dist && npx tsc",
 		"start": "node --env-file=.env dist/src/presentation/web/server.js"
 	},
-	"prisma": {
-		"schema": "src/infrastructure/prisma/schema.prisma"
-	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
