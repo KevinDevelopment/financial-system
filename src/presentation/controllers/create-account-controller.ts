@@ -20,7 +20,7 @@ export class CreateAccountController {
 				initialBalance: httpRequest.body.initialBalance,
 				currentBalance: httpRequest.body.currentBalance,
 				auth: {
-					userId: httpRequest.tenant.userId,
+					userId: httpRequest.tenant.sub,
 					role: httpRequest.tenant.role,
 					organizationId: httpRequest.tenant.organizationId,
 				},

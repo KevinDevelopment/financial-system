@@ -30,7 +30,7 @@ export class CreateTransactionController {
 				description: httpRequest.body.description,
 				categoryId: httpRequest.body.categoryId,
 				auth: {
-					userId: httpRequest.tenant.userId,
+					userId: httpRequest.tenant.sub,
 					organizationId: httpRequest.tenant.organizationId,
 					role: httpRequest.tenant.role,
 				},

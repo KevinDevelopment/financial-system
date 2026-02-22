@@ -27,7 +27,7 @@ export class GetTransactionsByAccountController {
 			const result = await this.getTransactionsByAccountUseCase.Perform({
 				accountId: httpRequest.params.accountId,
 				auth: {
-					userId: httpRequest.tenant.userId,
+					userId: httpRequest.tenant.sub,
 					role: httpRequest.tenant.role,
 					organizationId: httpRequest.tenant.organizationId,
 				},
