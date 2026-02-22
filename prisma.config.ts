@@ -1,6 +1,14 @@
-import { config } from "./src/infrastructure/config";
 import "dotenv/config";
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
+import { readFileSync } from "fs";
+
+function getDatabaseUrl() {
+	try {
+		return readFileSync("/run/secrets/database_url", "utf-8").trim();
+	} catch {
+		return process.env.DATABASE_URL ?? "";
+	}
+}
 
 export default defineConfig({
 	schema: "./src/infrastructure/prisma/schema.prisma",
@@ -8,6 +16,6 @@ export default defineConfig({
 		path: "src/infrastructure/prisma",
 	},
 	datasource: {
-		url: config.databaseUrl,
+		url: getDatabaseUrl(),
 	},
 });
