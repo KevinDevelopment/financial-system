@@ -60,9 +60,8 @@ export class AccountRepositoryAdapter implements AccountRepository {
 	async getAccounts(
 		organizationId: bigint,
 		page: number,
-		perPage: number
+		perPage: number,
 	): Promise<PaginatedResult<AccountProps>> {
-
 		const skip = (page - 1) * perPage;
 
 		const [accounts, total] = await prisma.$transaction([
@@ -70,21 +69,20 @@ export class AccountRepositoryAdapter implements AccountRepository {
 				where: { organizationId },
 				skip,
 				take: perPage,
-				orderBy: { createdAt: "desc" }
+				orderBy: { createdAt: "desc" },
 			}),
 			prisma.account.count({
-				where: { organizationId }
-			})
+				where: { organizationId },
+			}),
 		]);
 
-		const data = accounts.map(account =>
-			accountMapper.toDomain(account).toProps()
+		const data = accounts.map((account) =>
+			accountMapper.toDomain(account).toProps(),
 		);
 
 		return {
 			data,
-			total
+			total,
 		};
 	}
-
 }

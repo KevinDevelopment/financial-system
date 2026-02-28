@@ -10,7 +10,7 @@ beforeEach(() => {
 		id: 4343n,
 		name: "Kevin jones",
 		email: "kevinjones@outlook.com",
-		role: 1,
+		role: 2,
 		organizationId: 5454545n,
 		passwordHash: "65j6k5jk65k6j56ij565jj6",
 	});
@@ -24,9 +24,8 @@ describe("entity user tests", () => {
 		expect(user.name.value).toEqual("Kevin jones");
 		expect(user.email.value).toEqual("kevinjones@outlook.com");
 		expect(user.passwordHash.value).toEqual("65j6k5jk65k6j56ij565jj6");
-		expect(user.role.type).toEqual(1);
+		expect(user.role.type).toEqual(2);
 		expect(user.organizationId.value).toEqual(5454545n);
-		expect(user.role.isManager()).toBe(true);
 	});
 
 	test("Should return true is role is admin", () => {

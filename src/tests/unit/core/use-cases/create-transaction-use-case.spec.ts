@@ -29,7 +29,6 @@ beforeEach(async () => {
 		transactionRepository,
 	);
 
-	// Criar e adicionar conta ao repositório
 	testAccount = Account.create({
 		name: "Conta Teste",
 		type: AccountType.CHECKING,
@@ -40,15 +39,18 @@ beforeEach(async () => {
 	});
 	await accountRepository.create(testAccount);
 
-	// Definir valores corretos usando a conta criada
 	correctValues = {
 		accountId: testAccount.id.value,
-		userId: 456n,
 		amount: 150.5,
 		type: TransactionType.EXPENSE,
 		status: TransactionStatus.PAID,
 		paymentMethod: PaymentMethod.PIX,
 		description: "Compra de mercado",
+		auth: {
+			userId: 456n,
+			organizationId: 123n,
+			role: 2
+		}
 	};
 });
 
@@ -131,7 +133,7 @@ describe("create transaction use case tests", () => {
 			await useCase.perform({ ...correctValues, accountId: 999999n });
 		} catch (error) {
 			expect(error).toBeInstanceOf(MissingDataError);
-			expect(error?.message).toBe("Conta não encontrada");
+			expect(error?.message).toBe("Permissão negada");
 			expect(error?.status).toBe(400);
 		}
 	});

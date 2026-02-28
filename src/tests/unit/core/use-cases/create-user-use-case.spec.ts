@@ -19,8 +19,11 @@ const correctValues: CreateUserInputDto = {
 	name: "Kevin jones",
 	email: "kevinjones@outlook.com",
 	password: "G$5IFG0t4905ggjiwo499",
-	organizationId: 65665656n,
-	role: 2,
+	auth: {
+		organizationId: 65665656n,
+		role: 2,
+		userId: 45n
+	}
 };
 
 const userProps: UserProps = {

@@ -19,7 +19,6 @@ export class Role {
 
 	private static isValid(value: number): value is RoleType {
 		return (
-			value === RoleType.MANAGER ||
 			value === RoleType.ADMIN ||
 			value === RoleType.USER
 		);
@@ -31,9 +30,5 @@ export class Role {
 
 	isAdmin(): boolean {
 		return this._value === RoleType.ADMIN;
-	}
-
-	isManager(): boolean {
-		return this._value === RoleType.MANAGER;
 	}
 }

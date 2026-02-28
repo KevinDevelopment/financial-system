@@ -1,7 +1,7 @@
 import { CreateAccountUseCase } from "../../core/application/use-cases";
 import { AccountRepositoryAdapter } from "../../infrastructure/adapters";
 import { AplicationError } from "../../core/domain/errors";
-import { HttpResponse, HttpRequest } from "../ports";
+import { HttpRequest, HttpResponse } from "../ports";
 
 export class CreateAccountController {
 	private readonly createAccountUseCase: CreateAccountUseCase;
@@ -19,8 +19,11 @@ export class CreateAccountController {
 				type: httpRequest.body.type,
 				initialBalance: httpRequest.body.initialBalance,
 				currentBalance: httpRequest.body.currentBalance,
-				organizationId: httpRequest.tenant.organizationId,
-				userId: httpRequest.tenant.sub,
+				auth: {
+					userId: httpRequest.tenant.sub,
+					role: httpRequest.tenant.role,
+					organizationId: httpRequest.tenant.organizationId,
+				},
 			});
 
 			return {

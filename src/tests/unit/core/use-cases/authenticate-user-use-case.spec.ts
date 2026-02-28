@@ -25,7 +25,7 @@ const userProps: UserProps = {
 	email: "john.doe@example.com",
 	passwordHash: "",
 	organizationId: 123456n,
-	role: 1,
+	role: 2,
 };
 
 const correctInput: AuthenticateUserInputDto = {

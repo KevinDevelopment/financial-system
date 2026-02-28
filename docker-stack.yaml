@@ -1,0 +1,64 @@
+services:
+  financial-system:
+    image: financy-prod-image
+    networks:
+      - infra_stack_infra_network
+    secrets:
+      - postgres_user
+      - postgres_password
+      - postgres_db
+      - redis_password
+      - access_token_secret
+      - refresh_token_secret
+      - token_algorithm
+      - database_url
+      - redis_url
+      - seed_admin_password
+    environment:
+      NODE_ENV: production
+      PORT: 8755
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - target: 8755
+        published: 8755
+        protocol: tcp
+        mode: ingress
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8755/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+secrets:
+  postgres_password:
+    external: true
+  postgres_user:
+    external: true
+  postgres_db:
+    external: true
+  redis_password:
+    external: true
+  access_token_secret:
+    external: true
+  refresh_token_secret:
+    external: true
+  token_algorithm:
+    external: true
+  database_url:
+    external: true
+  redis_url:
+    external: true
+  seed_admin_password:
+    external: true
+
+networks:
+  infra_stack_infra_network:
+    external: true

@@ -4,3 +4,5 @@ node_modules
 /src/infrastructure/generated/prisma
 /coverage
 /data
+/secrets
+/dist
